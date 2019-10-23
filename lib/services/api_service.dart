@@ -1,11 +1,11 @@
 import 'package:http/http.dart' as http;
+import 'package:kissan_garden/app_config.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
 import './preferences_service.dart';
 
 abstract class ApiService {
-  static const BASE_URL = '';
 
   Future get(String url,
       {Map<String, String> params, bool useAuthHeaders = true}) async {
@@ -20,7 +20,7 @@ abstract class ApiService {
   }
 
   String _getUrl(String url) {
-    return BASE_URL + url;
+    return AppConfig.baseUrl + url;
   }
 
   Future<Map<String, String>> _getHeaders({useAuthHeaders = true}) async {
