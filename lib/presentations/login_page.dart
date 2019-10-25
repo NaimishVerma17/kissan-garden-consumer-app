@@ -56,19 +56,11 @@ class _LoginPage extends State<LoginPage> {
                   child: TextFormField(
                     maxLength: 10,
                     autofocus: true,
-
                     keyboardType: TextInputType.number,
                     validator: Validators.validatePhoneNo,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(2.0),
-                        ),
-                      ),
-                      hintText: 'Enter your 10 digit mobile no.',
-                      errorStyle: TextStyle(color: Styles.errorColor),
-                    ),
-                    onSaved: (value){
+                    decoration: Styles.getInputDecoration(
+                        'Enter your 10 digit mobile no.'),
+                    onSaved: (value) {
                       _phoneNo = value;
                     },
                   ),
@@ -100,10 +92,11 @@ class _LoginPage extends State<LoginPage> {
   }
 
   _login() {
-    if(_globalKey.currentState.validate()){
+    if (_globalKey.currentState.validate()) {
       _globalKey.currentState.save();
       print(_phoneNo);
       Navigator.pushNamed(context, RouteUtils.verifyOTP);
-    };
+    }
+    ;
   }
 }

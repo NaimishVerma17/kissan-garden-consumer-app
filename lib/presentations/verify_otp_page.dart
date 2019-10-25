@@ -47,19 +47,11 @@ class _VerifyOtpPage extends State<VerifyOtpPage> {
                   child: TextFormField(
                     maxLength: 10,
                     autofocus: true,
-
                     keyboardType: TextInputType.number,
                     validator: Validators.validatePhoneNo,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(2.0),
-                        ),
-                      ),
-                      hintText: 'Enter 6 digit OTP sent on your mobile no.',
-                      errorStyle: TextStyle(color: Styles.errorColor),
-                    ),
-                    onSaved: (value){
+                    decoration: Styles.getInputDecoration(
+                        'Enter 6 digit OTP sent on your mobile no.'),
+                    onSaved: (value) {
                       _phoneNo = value;
                     },
                   ),
@@ -80,9 +72,10 @@ class _VerifyOtpPage extends State<VerifyOtpPage> {
   }
 
   _verifyOtp() {
-    if(_globalKey.currentState.validate()){
+    if (_globalKey.currentState.validate()) {
       _globalKey.currentState.save();
       print(_phoneNo);
-    };
+    }
+    ;
   }
 }

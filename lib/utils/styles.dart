@@ -20,6 +20,7 @@ abstract class Styles {
         letterSpacing: 1.2,
         fontWeight: FontWeight.w500);
   }
+
   static TextStyle headingText() {
     return TextStyle(
         color: primaryColor,
@@ -27,10 +28,21 @@ abstract class Styles {
         letterSpacing: 1.3,
         fontWeight: FontWeight.w800);
   }
+
   static TextStyle subHeadingText() {
     return TextStyle(
-        color: subHeadingColor,
-        fontSize: 16.0,
-        fontWeight: FontWeight.w500);
+        color: subHeadingColor, fontSize: 16.0, fontWeight: FontWeight.w500);
+  }
+
+  static InputDecoration getInputDecoration(String hint) {
+    return InputDecoration(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(2.0),
+        ),
+      ),
+      hintText: hint,
+      errorStyle: TextStyle(color: Styles.errorColor),
+    );
   }
 }
