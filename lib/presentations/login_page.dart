@@ -55,7 +55,6 @@ class _LoginPage extends State<LoginPage> {
                   key: _globalKey,
                   child: TextFormField(
                     maxLength: 10,
-                    autofocus: true,
                     keyboardType: TextInputType.number,
                     validator: Validators.validatePhoneNo,
                     decoration: Styles.getInputDecoration(

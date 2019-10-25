@@ -11,8 +11,7 @@ class VerifyOtpPage extends StatefulWidget {
 }
 
 class _VerifyOtpPage extends State<VerifyOtpPage> {
-  final GlobalKey<FormState> _globalKey = new GlobalKey();
-  String _phoneNo;
+  String _otp;
 
   @override
   void initState() {
@@ -42,19 +41,14 @@ class _VerifyOtpPage extends State<VerifyOtpPage> {
                 SizedBox(
                   height: 15.0,
                 ),
-                Form(
-                  key: _globalKey,
-                  child: TextFormField(
-                    maxLength: 10,
-                    autofocus: true,
-                    keyboardType: TextInputType.number,
-                    validator: Validators.validatePhoneNo,
-                    decoration: Styles.getInputDecoration(
-                        'Enter 6 digit OTP sent on your mobile no.'),
-                    onSaved: (value) {
-                      _phoneNo = value;
-                    },
-                  ),
+                TextField(
+                  maxLength: 6,
+                  keyboardType: TextInputType.number,
+                  decoration: Styles.getInputDecoration(
+                      'Enter 6 digit OTP sent on your mobile no.'),
+                  onChanged: (value) {
+                    _otp = value;
+                  },
                 ),
                 SizedBox(
                   height: 15.0,
@@ -72,10 +66,6 @@ class _VerifyOtpPage extends State<VerifyOtpPage> {
   }
 
   _verifyOtp() {
-    if (_globalKey.currentState.validate()) {
-      _globalKey.currentState.save();
-      print(_phoneNo);
-    }
-    ;
+    print(_otp);
   }
 }
