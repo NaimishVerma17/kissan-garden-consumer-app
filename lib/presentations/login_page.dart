@@ -11,6 +11,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPage extends State<LoginPage> {
+  final GlobalKey<FormState> _globalKey = new GlobalKey();
+  String _phoneNo;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,26 +43,33 @@ class _LoginPage extends State<LoginPage> {
                   height: 15.0,
                 ),
                 Text(
-                  'Enter your mobile number, we will send you an OPT to verify',
+                  'Enter your mobile number, we will send you an OPT to verify.',
                   textAlign: TextAlign.center,
                   style: Styles.subHeadingText(),
                 ),
                 SizedBox(
                   height: 30.0,
                 ),
-                TextFormField(
-                  maxLength: 10,
-                  autofocus: true,
-                  keyboardType: TextInputType.number,
-                  validator: Validators.validatePhoneNo,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(2.0),
+                Form(
+                  key: _globalKey,
+                  child: TextFormField(
+                    maxLength: 10,
+                    autofocus: true,
+
+                    keyboardType: TextInputType.number,
+                    validator: Validators.validatePhoneNo,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(2.0),
+                        ),
                       ),
+                      hintText: 'Enter your 10 digit mobile no.',
+                      errorStyle: TextStyle(color: Styles.errorColor),
                     ),
-                    hintText: 'Enter your 10 digit mobile no.',
-                    errorStyle: TextStyle(color: Styles.errorColor),
+                    onSaved: (value){
+                      _phoneNo = value;
+                    },
                   ),
                 ),
                 SizedBox(
@@ -68,7 +83,7 @@ class _LoginPage extends State<LoginPage> {
                   height: 15.0,
                 ),
                 Text(
-                  'By signing in, you agree to our Terms and Conditions',
+                  'By signing in, you agree to our Terms and Conditions.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontSize: 16.0,
@@ -83,5 +98,10 @@ class _LoginPage extends State<LoginPage> {
     );
   }
 
-  _login() {}
+  _login() {
+    if(_globalKey.currentState.validate()){
+      _globalKey.currentState.save();
+      print(_phoneNo);
+    };
+  }
 }
