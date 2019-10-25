@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kissan_garden/utils/route_utils.dart';
+import 'package:kissan_garden/utils/styles.dart';
 
 class KisaanGardenApp extends StatelessWidget {
   @override
@@ -7,7 +8,8 @@ class KisaanGardenApp extends StatelessWidget {
     return MaterialApp(
       title: 'Kisaan Garden',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Styles.primaryColor,
+        fontFamily: 'Raleway'
       ),
       initialRoute: RouteUtils.home,
       routes: RouteUtils.routes,
