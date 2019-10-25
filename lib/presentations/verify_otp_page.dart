@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:kissan_garden/presentations/shared/kisaan_button.dart';
 import 'package:kissan_garden/utils/Validators.dart';
-import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
-class LoginPage extends StatefulWidget {
+class VerifyOtpPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _LoginPage();
+    return _VerifyOtpPage();
   }
 }
 
-class _LoginPage extends State<LoginPage> {
+class _VerifyOtpPage extends State<VerifyOtpPage> {
   final GlobalKey<FormState> _globalKey = new GlobalKey();
   String _phoneNo;
 
@@ -37,19 +36,11 @@ class _LoginPage extends State<LoginPage> {
                   width: 100.0,
                 ),
                 Text(
-                  'Login using OTP',
+                  'Verify OTP',
                   style: Styles.headingText(),
                 ),
                 SizedBox(
                   height: 15.0,
-                ),
-                Text(
-                  'Enter your mobile number, we will send you an OPT to verify.',
-                  textAlign: TextAlign.center,
-                  style: Styles.subHeadingText(),
-                ),
-                SizedBox(
-                  height: 30.0,
                 ),
                 Form(
                   key: _globalKey,
@@ -65,7 +56,7 @@ class _LoginPage extends State<LoginPage> {
                           Radius.circular(2.0),
                         ),
                       ),
-                      hintText: 'Enter your 10 digit mobile no.',
+                      hintText: 'Enter 6 digit OTP sent on your mobile no.',
                       errorStyle: TextStyle(color: Styles.errorColor),
                     ),
                     onSaved: (value){
@@ -77,19 +68,8 @@ class _LoginPage extends State<LoginPage> {
                   height: 15.0,
                 ),
                 KisaanButton(
-                  text: 'Request OTP',
-                  onClick: _login,
-                ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                Text(
-                  'By signing in, you agree to our Terms and Conditions.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                      color: Styles.subHeadingColor),
+                  text: 'Verify OTP',
+                  onClick: _verifyOtp,
                 ),
               ],
             ),
@@ -99,11 +79,10 @@ class _LoginPage extends State<LoginPage> {
     );
   }
 
-  _login() {
+  _verifyOtp() {
     if(_globalKey.currentState.validate()){
       _globalKey.currentState.save();
       print(_phoneNo);
-      Navigator.pushNamed(context, RouteUtils.verifyOTP);
     };
   }
 }
