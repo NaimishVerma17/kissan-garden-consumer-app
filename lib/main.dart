@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'presentations/home.dart';
-
+import 'package:kissan_garden/utils/route_utils.dart';
 
 class KisaanGardenApp extends StatelessWidget {
   @override
@@ -11,7 +9,8 @@ class KisaanGardenApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      initialRoute: RouteUtils.home,
+      routes: RouteUtils.routes,
     );
   }
 }
