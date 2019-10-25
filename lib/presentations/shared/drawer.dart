@@ -58,7 +58,7 @@ class KisaanDrawer extends StatelessWidget {
                 color: Colors.white,
               ),
               title: Text(
-                'My accounts',
+                'My account',
                 style: Styles.drawerItemsText(),
               ),
             ),
