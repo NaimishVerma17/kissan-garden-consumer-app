@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kissan_garden/presentations/shared/kisaan_button.dart';
-import 'package:kissan_garden/utils/Validators.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
 class VerifyOtpPage extends StatefulWidget {
@@ -57,6 +56,23 @@ class _VerifyOtpPage extends State<VerifyOtpPage> {
                   text: 'Verify OTP',
                   onClick: _verifyOtp,
                 ),
+                SizedBox(
+                  height: 15.0,
+                ),
+                GestureDetector(
+                  onTap: _resendOtp,
+                  child: Text(
+                    'Resend OTP',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 1.2,
+                      color: Styles.subHeadingColor,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -67,5 +83,9 @@ class _VerifyOtpPage extends State<VerifyOtpPage> {
 
   _verifyOtp() {
     print(_otp);
+  }
+
+  _resendOtp() {
+    print('Resend otp');
   }
 }
