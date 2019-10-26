@@ -21,9 +21,9 @@ class _VerifyOtpPage extends State<VerifyOtpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 25.0),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(vertical: 50.0, horizontal: 25.0),
+          child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
