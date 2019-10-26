@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> with UnsubscribeMixin {
   BroadcasterService _broadcasterService = BroadcasterService.getInstance();
-  bool _isLoggedIn =false;
+  bool _isLoggedIn = false;
 
   @override
   void initState() {
@@ -31,6 +31,7 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
 
   @override
   Widget build(BuildContext context) {
+    _isLoggedIn = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         leading: Builder(

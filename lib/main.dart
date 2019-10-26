@@ -12,7 +12,7 @@ class KisaanGardenApp extends StatelessWidget {
         accentColor: Styles.subHeadingColor,
         fontFamily: 'Raleway'
       ),
-      initialRoute: RouteUtils.home,
+      initialRoute: RouteUtils.splash,
       routes: RouteUtils.routes,
     );
   }

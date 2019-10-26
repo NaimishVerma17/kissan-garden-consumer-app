@@ -104,6 +104,7 @@ class _VerifyOtpPage extends State<VerifyOtpPage> {
       if (response.token.isNotEmpty) {
         BroadcasterService.getInstance()
             .emit(eventType: BroadcasterEventType.loginComplete);
+        _isLoading = false;
         Navigator.of(context).pop();
       }
     } catch (error) {
