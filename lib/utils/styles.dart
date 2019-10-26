@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 abstract class Styles {
   static const Color primaryColor = Color(0xFF487473);
@@ -45,13 +46,15 @@ abstract class Styles {
       errorStyle: TextStyle(color: Styles.errorColor),
     );
   }
-  static showSnackBar(BuildContext context, String message) {
-    Scaffold.of(context).showSnackBar(
-      new SnackBar(
-        content: Text(
-          message,
-        ),
-      ),
+  static showToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIos: 2,
+        backgroundColor: primaryColor,
+        textColor: Colors.white,
+        fontSize: 16.0
     );
   }
 }

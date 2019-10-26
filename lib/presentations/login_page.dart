@@ -97,7 +97,7 @@ class _LoginPage extends State<LoginPage> {
   _login() async {
     if (_globalKey.currentState.validate()) {
       _globalKey.currentState.save();
-      Map<String, String> body = {"phone_number": _phoneNo};
+      Map<String, String> body = {"phone_number": null};
       setState(() {
         _isLoading = true;
       });
@@ -106,7 +106,10 @@ class _LoginPage extends State<LoginPage> {
         Navigator.pushReplacementNamed(context, RouteUtils.verifyOTP);
         _isLoading = false;
       } catch (error) {
-        Styles.showSnackBar(context, error);
+        setState(() {
+          _isLoading = false;
+          Styles.showToast(error);
+        });
       }
     }
   }
