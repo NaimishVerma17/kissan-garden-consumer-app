@@ -8,7 +8,7 @@ abstract class Styles {
   static TextStyle pageTitleText() {
     return TextStyle(
         color: primaryColor,
-        fontSize: 24.0,
+        fontSize: 22.0,
         letterSpacing: 1.3,
         fontWeight: FontWeight.w800);
   }
@@ -16,7 +16,7 @@ abstract class Styles {
   static TextStyle drawerItemsText() {
     return TextStyle(
         color: Colors.white,
-        fontSize: 20.0,
+        fontSize: 18.0,
         letterSpacing: 1.2,
         fontWeight: FontWeight.w500);
   }
@@ -31,7 +31,7 @@ abstract class Styles {
 
   static TextStyle subHeadingText() {
     return TextStyle(
-        color: subHeadingColor, fontSize: 16.0, fontWeight: FontWeight.w500);
+        color: subHeadingColor, fontSize: 14.0, fontWeight: FontWeight.w500);
   }
 
   static InputDecoration getInputDecoration(String hint) {
@@ -43,6 +43,15 @@ abstract class Styles {
       ),
       hintText: hint,
       errorStyle: TextStyle(color: Styles.errorColor),
+    );
+  }
+  static showSnackBar(BuildContext context, String message) {
+    Scaffold.of(context).showSnackBar(
+      new SnackBar(
+        content: Text(
+          message,
+        ),
+      ),
     );
   }
 }

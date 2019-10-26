@@ -21,7 +21,7 @@ class KisaanDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.home,
-                size: 32.0,
+                size: 28.0,
                 color: Colors.white,
               ),
               title: Text(
@@ -32,7 +32,7 @@ class KisaanDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.location_on,
-                size: 32.0,
+                size: 28.0,
                 color: Colors.white,
               ),
               title: Text(
@@ -43,7 +43,7 @@ class KisaanDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.local_grocery_store,
-                size: 32.0,
+                size: 28.0,
                 color: Colors.white,
               ),
               title: Text(
@@ -54,7 +54,7 @@ class KisaanDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.account_circle,
-                size: 32.0,
+                size: 28.0,
                 color: Colors.white,
               ),
               title: Text(
@@ -65,7 +65,7 @@ class KisaanDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.info_outline,
-                size: 32.0,
+                size: 28.0,
                 color: Colors.white,
               ),
               title: Text(
@@ -76,7 +76,7 @@ class KisaanDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.local_phone,
-                size: 32.0,
+                size: 28.0,
                 color: Colors.white,
               ),
               title: Text(

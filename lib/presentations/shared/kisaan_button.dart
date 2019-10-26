@@ -30,7 +30,7 @@ class KisaanButton extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            fontSize: 22.0,
+            fontSize: 20.0,
             color: Colors.white,
             letterSpacing: 1.2,
           ),

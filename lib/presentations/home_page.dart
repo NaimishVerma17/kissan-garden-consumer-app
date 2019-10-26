@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
           builder: (context) => IconButton(
               icon: Icon(
                 Icons.menu,
-                size: 32.0,
+                size: 30.0,
                 color: Styles.primaryColor,
               ),
               onPressed: () {
@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: Icon(
               Icons.exit_to_app,
-              size: 35.0,
+              size: 32.0,
               color: Styles.primaryColor,
             ),
             padding: EdgeInsets.symmetric(horizontal: 20.0),

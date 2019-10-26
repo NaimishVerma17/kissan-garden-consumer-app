@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kissan_garden/presentations/shared/kisaan_button.dart';
+import 'package:kissan_garden/services/auth_service.dart';
 import 'package:kissan_garden/utils/Validators.dart';
 import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
@@ -13,6 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPage extends State<LoginPage> {
   final GlobalKey<FormState> _globalKey = new GlobalKey();
+  AuthService _authService = AuthService.getInstance();
   bool _isLoading = false;
   String _phoneNo;
 
@@ -80,7 +82,7 @@ class _LoginPage extends State<LoginPage> {
                   'By signing in, you agree to our Terms and Conditions.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 16.0,
+                      fontSize: 14.0,
                       fontWeight: FontWeight.w500,
                       color: Styles.subHeadingColor),
                 ),
@@ -92,15 +94,20 @@ class _LoginPage extends State<LoginPage> {
     );
   }
 
-  _login() {
+  _login() async {
     if (_globalKey.currentState.validate()) {
       _globalKey.currentState.save();
-      print(_phoneNo);
+      Map<String, String> body = {"phone_number": _phoneNo};
       setState(() {
         _isLoading = true;
       });
-//      Navigator.pushNamed(context, RouteUtils.verifyOTP);
+      try {
+        await _authService.sendOtp(body);
+        Navigator.pushReplacementNamed(context, RouteUtils.verifyOTP);
+        _isLoading = false;
+      } catch (error) {
+        Styles.showSnackBar(context, error);
+      }
     }
-    ;
   }
 }

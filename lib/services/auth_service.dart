@@ -6,4 +6,8 @@ class AuthService extends ApiService {
   static final AuthService _instance = AuthService._();
 
   factory AuthService.getInstance() => _instance;
+
+  Future sendOtp(Map<String, String> body) {
+    return this.post('/api/send-otp', body: body, useAuthHeaders: false);
+  }
 }
