@@ -5,17 +5,17 @@ abstract class AppConfig {
     switch (env) {
       case Environment.dev:
         {
-          baseUrl = '';
+          baseUrl = 'https://api.kissangarden.com';
           break;
         }
       case Environment.prod:
         {
-          baseUrl = '';
+          baseUrl = 'https://api.kissangarden.com';
           break;
         }
       case Environment.stage:
         {
-          baseUrl = '';
+          baseUrl = 'https://api.kissangarden.com';
           break;
         }
     }
