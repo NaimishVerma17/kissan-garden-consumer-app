@@ -97,7 +97,7 @@ class _LoginPage extends State<LoginPage> {
   _login() async {
     if (_globalKey.currentState.validate()) {
       _globalKey.currentState.save();
-      Map<String, String> body = {"phone_number": null};
+      Map<String, String> body = {"phone_number": _phoneNo};
       setState(() {
         _isLoading = true;
       });
