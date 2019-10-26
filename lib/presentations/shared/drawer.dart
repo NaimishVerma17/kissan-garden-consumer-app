@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
 class KisaanDrawer extends StatelessWidget {
+  bool _isLoggedIn;
+
+  KisaanDrawer(this._isLoggedIn);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -29,39 +33,45 @@ class KisaanDrawer extends StatelessWidget {
                 style: Styles.drawerItemsText(),
               ),
             ),
-            ListTile(
-              leading: Icon(
-                Icons.location_on,
-                size: 28.0,
-                color: Colors.white,
-              ),
-              title: Text(
-                'Saved addresses',
-                style: Styles.drawerItemsText(),
-              ),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.local_grocery_store,
-                size: 28.0,
-                color: Colors.white,
-              ),
-              title: Text(
-                'My orders',
-                style: Styles.drawerItemsText(),
-              ),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.account_circle,
-                size: 28.0,
-                color: Colors.white,
-              ),
-              title: Text(
-                'My account',
-                style: Styles.drawerItemsText(),
-              ),
-            ),
+            _isLoggedIn
+                ? ListTile(
+                    leading: Icon(
+                      Icons.location_on,
+                      size: 28.0,
+                      color: Colors.white,
+                    ),
+                    title: Text(
+                      'Saved addresses',
+                      style: Styles.drawerItemsText(),
+                    ),
+                  )
+                : Container(),
+            _isLoggedIn
+                ? ListTile(
+                    leading: Icon(
+                      Icons.local_grocery_store,
+                      size: 28.0,
+                      color: Colors.white,
+                    ),
+                    title: Text(
+                      'My orders',
+                      style: Styles.drawerItemsText(),
+                    ),
+                  )
+                : Container(),
+            _isLoggedIn
+                ? ListTile(
+                    leading: Icon(
+                      Icons.account_circle,
+                      size: 28.0,
+                      color: Colors.white,
+                    ),
+                    title: Text(
+                      'My account',
+                      style: Styles.drawerItemsText(),
+                    ),
+                  )
+                : Container(),
             ListTile(
               leading: Icon(
                 Icons.info_outline,

@@ -76,7 +76,7 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
       body: Center(
         child: Text('Kissan Garden'),
       ),
-      drawer: KisaanDrawer(),
+      drawer: KisaanDrawer(_isLoggedIn),
     );
   }
 
