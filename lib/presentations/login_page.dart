@@ -103,7 +103,8 @@ class _LoginPage extends State<LoginPage> {
       });
       try {
         await _authService.sendOtp(body);
-        Navigator.pushReplacementNamed(context, RouteUtils.verifyOTP);
+        Navigator.pushReplacementNamed(context, RouteUtils.verifyOTP,
+            arguments: _phoneNo);
         _isLoading = false;
       } catch (error) {
         setState(() {

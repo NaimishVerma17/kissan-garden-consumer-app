@@ -1,3 +1,4 @@
+import 'package:kissan_garden/models/user.dart';
 import 'package:kissan_garden/utils/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,4 +21,15 @@ class PreferencesService {
   Future<String> getAuthToken() async {
     return (await this._getInstance()).getString(Constants.AUTH_TOKEN);
   }
+
+  setLoggedInUser(User user) async {
+    (await this._getInstance())
+        .setString(Constants.LOGGED_IN_USER, user.toJson().toString());
+  }
+
+  Future<String> getLoggedInUser() async {
+    return (await this._getInstance()).getString(Constants.LOGGED_IN_USER);
+  }
+
+
 }

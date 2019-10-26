@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:kissan_garden/models/responses/login_response.dart';
 import 'package:kissan_garden/presentations/shared/kisaan_button.dart';
+import 'package:kissan_garden/services/auth_service.dart';
+import 'package:kissan_garden/services/broadcaster_service.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
 class VerifyOtpPage extends StatefulWidget {
@@ -11,6 +14,9 @@ class VerifyOtpPage extends StatefulWidget {
 
 class _VerifyOtpPage extends State<VerifyOtpPage> {
   String _otp;
+  bool _isLoading = false;
+  String _phoneNo;
+  AuthService _authService = AuthService.getInstance();
 
   @override
   void initState() {
@@ -19,6 +25,7 @@ class _VerifyOtpPage extends State<VerifyOtpPage> {
 
   @override
   Widget build(BuildContext context) {
+    _phoneNo = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -81,8 +88,28 @@ class _VerifyOtpPage extends State<VerifyOtpPage> {
     );
   }
 
-  _verifyOtp() {
-    print(_otp);
+  _verifyOtp() async {
+    if (_otp.length != 6) {
+      Styles.showToast('Please enter a valid OTP');
+      return;
+    }
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      Map<String, String> body = {'phone_number': _phoneNo, 'otp': _otp};
+      final LoginResponse response = await _authService.verifyOtp(body);
+      print(response.token);
+      print(response.data);
+      if (response.token.isNotEmpty) {
+        BroadcasterService.getInstance()
+            .emit(eventType: BroadcasterEventType.loginComplete);
+        Navigator.of(context).pop();
+      }
+    } catch (error) {
+      _isLoading = false;
+      Styles.showToast(error);
+    }
   }
 
   _resendOtp() {
