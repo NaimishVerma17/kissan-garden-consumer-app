@@ -17,7 +17,7 @@ class User {
   int minBookingAmount;
 
   @JsonKey(name: 'delivery_time')
-  // TODO:Replace dynamic with List<String>
+  // @TODO:Replace dynamic with List<String>
   dynamic deliveryTime;
 
   User(this.id, this.fullName, this.phoneNumber, this.minBookingAmount,
