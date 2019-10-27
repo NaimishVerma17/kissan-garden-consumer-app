@@ -30,6 +30,4 @@ class PreferencesService {
   Future<String> getLoggedInUser() async {
     return (await this._getInstance()).getString(Constants.LOGGED_IN_USER);
   }
-
-
 }

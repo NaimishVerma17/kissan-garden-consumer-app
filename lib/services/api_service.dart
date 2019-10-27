@@ -26,30 +26,14 @@ abstract class ApiService {
   }
 
   Future<Map<String, String>> _getHeaders({useAuthHeaders = true}) async {
-    final map = Map < String,
-        String
-    >
-        .
-    from
-    (
-    {
-    "Content-Type": "application/json"
-    }
-    );
+    final map = Map<String, String>.from({"Content-Type": "application/json"});
 
-    if
-    (
-    useAuthHeaders
-    )
-    {
-    map["Authorization"] =
-    "bearer ${
-    await PreferencesService().getAuthToken()}"
-    ;
+    if (useAuthHeaders) {
+      map["Authorization"] =
+          "bearer ${await PreferencesService().getAuthToken()}";
     }
 
-    return
-    map;
+    return map;
   }
 
   String _getUrlWithParams(url, {Map<String, String> params}) {
@@ -79,8 +63,7 @@ abstract class ApiService {
             throw (errors[errors.keys.elementAt(0)][0].toString());
         } else if (body['message'] != null) {
           throw (body['message']);
-        }
-        else {
+        } else {
           throw ('Something went wrong!');
         }
       }
