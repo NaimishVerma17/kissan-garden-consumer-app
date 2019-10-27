@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kissan_garden/models/mixins/unsubscribe.dart';
 import 'package:kissan_garden/presentations/shared/drawer.dart';
+import 'package:kissan_garden/presentations/shared/search_bar.dart';
 import 'package:kissan_garden/services/broadcaster_service.dart';
 import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
@@ -77,30 +78,10 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
       body: Container(
         decoration: BoxDecoration(color: Styles.homeBackgroundColor),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 18.0),
           child: Column(
             children: <Widget>[
-              Container(
-                padding: const EdgeInsets.symmetric(),
-                alignment: Alignment.center,
-                height: 48.0,
-                decoration: new BoxDecoration(
-                  color: Colors.white,
-                  border: new Border.all(color: Colors.white, width: 4.0),
-                  borderRadius: new BorderRadius.circular(20.0),
-                ),
-                child: new TextField(
-                  style: TextStyle(fontSize: 16.0),
-                  decoration: InputDecoration(
-                      hintText: 'Search',
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: 25.0,
-                        color: Styles.primaryColor,
-                      ),
-                      border: InputBorder.none),
-                ),
-              )
+              SearchBar()
             ],
           ),
         ),
