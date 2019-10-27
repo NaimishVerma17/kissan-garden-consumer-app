@@ -74,8 +74,36 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
                 )
         ],
       ),
-      body: Center(
-        child: Text('Kissan Garden'),
+      body: Container(
+        decoration: BoxDecoration(color: Styles.homeBackgroundColor),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.symmetric(),
+                alignment: Alignment.center,
+                height: 48.0,
+                decoration: new BoxDecoration(
+                  color: Colors.white,
+                  border: new Border.all(color: Colors.white, width: 4.0),
+                  borderRadius: new BorderRadius.circular(20.0),
+                ),
+                child: new TextField(
+                  style: TextStyle(fontSize: 16.0),
+                  decoration: InputDecoration(
+                      hintText: 'Search',
+                      prefixIcon: Icon(
+                        Icons.search,
+                        size: 25.0,
+                        color: Styles.primaryColor,
+                      ),
+                      border: InputBorder.none),
+                ),
+              )
+            ],
+          ),
+        ),
       ),
       drawer: KisaanDrawer(_isLoggedIn),
     );
