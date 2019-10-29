@@ -46,7 +46,6 @@ abstract class ApiService {
 
       return apiUrl + "?" + paramsString.substring(1);
     }
-
     return apiUrl;
   }
 

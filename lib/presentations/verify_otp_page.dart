@@ -57,7 +57,11 @@ class _VerifyOtpPage extends State<VerifyOtpPage> {
                   },
                 ),
                 SizedBox(
-                  height: 15.0,
+                  height: 5.0,
+                ),
+                _isLoading ? CircularProgressIndicator() : Container(),
+                SizedBox(
+                  height: 6.0,
                 ),
                 KisaanButton(
                   text: 'Verify OTP',

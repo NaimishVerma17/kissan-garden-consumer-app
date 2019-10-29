@@ -52,6 +52,7 @@ flutter:
     - assets/images/drawer-bg.png
     - assets/images/shopping-basket.png
     - assets/images/user.png
+    - assets/images/vegi.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

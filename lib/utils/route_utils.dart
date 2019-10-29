@@ -6,11 +6,13 @@ abstract class RouteUtils {
   static const home = '/home';
   static const login = '/login';
   static const verifyOTP = '/verify-otp';
+  static const items = '/items';
 
   static final Map<String, WidgetBuilder> routes = {
     splash: (context) => SplashPage(),
     home: (context) => HomePage(),
     login: (context) => LoginPage(),
     verifyOTP: (context) => VerifyOtpPage(),
+    items: (context) => ItemsPage()
   };
 }

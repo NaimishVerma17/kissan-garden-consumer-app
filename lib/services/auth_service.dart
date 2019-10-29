@@ -32,7 +32,7 @@ class AuthService extends ApiService {
 
   Future<bool> isLoggedIn() async {
     final token = await _preferencesService.getAuthToken();
-    if (token.isEmpty)
+    if (token == null || token.isEmpty)
       return false;
     else
       return true;

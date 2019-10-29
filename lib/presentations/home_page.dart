@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kissan_garden/models/category.dart';
 import 'package:kissan_garden/models/mixins/unsubscribe.dart';
+import 'package:kissan_garden/presentations/shared/category_card.dart';
 import 'package:kissan_garden/presentations/shared/drawer.dart';
 import 'package:kissan_garden/presentations/shared/search_bar.dart';
 import 'package:kissan_garden/services/broadcaster_service.dart';
+import 'package:kissan_garden/services/product_service.dart';
 import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
@@ -15,7 +18,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> with UnsubscribeMixin {
   BroadcasterService _broadcasterService = BroadcasterService.getInstance();
+  ProductService _productService = ProductService.getInstance();
   bool _isLoggedIn = false;
+  bool _isLoading = true;
+  List<Category> _categories;
 
   @override
   void initState() {
@@ -27,6 +33,7 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
         _isLoggedIn = true;
       });
     });
+    _fetchCategories();
     super.initState();
   }
 
@@ -75,19 +82,53 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
                 )
         ],
       ),
-      body: Container(
-        decoration: BoxDecoration(color: Styles.homeBackgroundColor),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 18.0),
-          child: Column(
-            children: <Widget>[
-              SearchBar()
-            ],
-          ),
-        ),
-      ),
+      body: _isLoading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : Container(
+              decoration: BoxDecoration(color: Styles.homeBackgroundColor),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 15.0, vertical: 18.0),
+                child: Column(
+                  children: <Widget>[
+                    SearchBar(),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                          itemCount: _categories.length,
+                          itemBuilder: (context, index) {
+                            return CategoryCard(
+                                _categories[index], _navigateToCategory);
+                          }),
+                    )
+                  ],
+                ),
+              ),
+            ),
       drawer: KisaanDrawer(_isLoggedIn),
     );
+  }
+
+  _fetchCategories() async {
+    try {
+      _categories = await _productService.fetchCategories();
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (error) {
+      Styles.showToast(error);
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  _navigateToCategory(int id) {
+    Navigator.pushNamed(context, RouteUtils.items, arguments: id.toString());
   }
 
   @override
