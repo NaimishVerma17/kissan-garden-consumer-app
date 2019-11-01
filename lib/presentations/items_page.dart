@@ -17,6 +17,7 @@ class _ItemsPage extends State<ItemsPage> {
   bool _isLoading = true;
   ProductService _productService = ProductService.getInstance();
   List<CategoryItem> _items;
+  bool _isItemsLoaded = false;
 
   @override
   void initState() {
@@ -25,8 +26,11 @@ class _ItemsPage extends State<ItemsPage> {
 
   @override
   Widget build(BuildContext context) {
-    _id = ModalRoute.of(context).settings.arguments;
-    _fetchItems();
+    if(!_isItemsLoaded){
+      _id = ModalRoute.of(context).settings.arguments;
+      _fetchItems();
+      _isItemsLoaded = true;
+    }
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -65,6 +69,7 @@ class _ItemsPage extends State<ItemsPage> {
   }
 
   _fetchItems() async {
+    print('fetch items');
     try {
       _items = await _productService.fetchItems(id: _id);
       setState(() {

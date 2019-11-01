@@ -22,6 +22,7 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
   bool _isLoggedIn = false;
   bool _isLoading = true;
   List<Category> _categories;
+  int _count = 0;
 
   @override
   void initState() {
@@ -39,7 +40,10 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
 
   @override
   Widget build(BuildContext context) {
-    _isLoggedIn = ModalRoute.of(context).settings.arguments;
+    if (_count == 0) {
+      _isLoggedIn = ModalRoute.of(context).settings.arguments;
+      _count += 1;
+    }
     return Scaffold(
       appBar: AppBar(
         leading: Builder(

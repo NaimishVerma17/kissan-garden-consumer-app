@@ -63,7 +63,7 @@ class ItemCard extends StatelessWidget {
               width: 130.0,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/images/vegi.jpeg'),
+                    image: NetworkImage('https://media.istockphoto.com/photos/vegetable-basket-picture-id511378964?k=6&m=511378964&s=612x612&w=0&h=qt3SJVjM-_hikHxDKlTsgSzgNUOoxKc9DZ0qZ791tNQ='),
                     fit: BoxFit.cover),
                 borderRadius: BorderRadius.all(
                   Radius.circular(8.0),
