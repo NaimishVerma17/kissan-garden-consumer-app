@@ -30,7 +30,7 @@ abstract class ApiService {
 
     if (useAuthHeaders) {
       map["Authorization"] =
-          "bearer ${await PreferencesService().getAuthToken()}";
+          "${await PreferencesService().getAuthToken()}";
     }
 
     return map;
