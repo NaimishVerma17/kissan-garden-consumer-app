@@ -81,7 +81,7 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 20.0),
                   onPressed: () {
-                    print('Cart pressed');
+                    Navigator.pushNamed(context, RouteUtils.cart);
                   },
                 )
         ],

@@ -12,7 +12,7 @@ class CartService extends ApiService {
 
   Future<List<CartItem>> fetchCart() async {
     try {
-      final response = await this.get('/cart', useAuthHeaders: true);
+      final response = await this.get('/api/cart', useAuthHeaders: true);
       return _getCartItemsList(response['data']);
     } catch (error) {
       throw (error);

@@ -9,7 +9,7 @@ class CartItem {
   int id;
 
   @JsonKey(name: 'qty', nullable: false)
-  int quantity;
+  String quantity;
 
   @JsonKey(name: 'item', nullable: false)
   Map<String, CategoryItem> item;

@@ -9,7 +9,7 @@ part of 'cart_item.dart';
 CartItem _$CartItemFromJson(Map<String, dynamic> json) {
   return CartItem(
     json['id'] as int,
-    json['qty'] as int,
+    json['qty'] as String,
     (json['item'] as Map<String, dynamic>).map(
       (k, e) => MapEntry(k, CategoryItem.fromJson(e as Map<String, dynamic>)),
     ),
