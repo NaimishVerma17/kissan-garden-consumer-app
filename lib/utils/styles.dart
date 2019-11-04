@@ -10,7 +10,7 @@ abstract class Styles {
   static TextStyle pageTitleText() {
     return TextStyle(
         color: primaryColor,
-        fontSize: 22.0,
+        fontSize: 21.0,
         letterSpacing: 1.3,
         fontWeight: FontWeight.w800);
   }
