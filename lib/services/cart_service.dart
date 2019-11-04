@@ -8,8 +8,6 @@ class CartService extends ApiService {
 
   factory CartService.getInstance() => _instance;
 
-  List<CartItem> _cartItems = new List();
-
   Future<List<CartItem>> fetchCart() async {
     try {
       final response = await this.get('/api/cart', useAuthHeaders: true);

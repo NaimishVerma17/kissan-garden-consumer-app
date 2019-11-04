@@ -69,7 +69,6 @@ class _ItemsPage extends State<ItemsPage> {
   }
 
   _fetchItems() async {
-    print('fetch items');
     try {
       _items = await _productService.fetchItems(id: _id);
       setState(() {
