@@ -142,7 +142,7 @@ class _ItemCard extends State<ItemCard> {
   }
 
   _onRemovePressed() async {
-    await _userService.addItem(item);
+    await _userService.removeItem(item);
 
     setState(() {
       itemCount--;

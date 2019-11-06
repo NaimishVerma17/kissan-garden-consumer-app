@@ -19,8 +19,6 @@ class _CartPage extends State<CartPage> {
   @override
   void initState() {
     _items = _userService.cartItems;
-    print('Cart Items' + _items.toString());
-    _fetchCart();
   }
 
   @override
@@ -32,14 +30,12 @@ class _CartPage extends State<CartPage> {
         iconTheme: IconThemeData(color: Styles.primaryColor),
       ),
       body: ListView.builder(
-            itemCount: _items.length,
-            itemBuilder: (context, index) {
-              return ItemCard(
-                CategoryItem.fromJson(_items[index].item['data'].toJson()),
-              );
-            }),
+          itemCount: _items.length,
+          itemBuilder: (context, index) {
+            return ItemCard(
+              CategoryItem.fromJson(_items[index].item['data'].toJson()),
+            );
+          }),
     );
   }
-
-  _fetchCart() {}
 }

@@ -18,7 +18,6 @@ class UserService extends ApiService {
   bootstrapApp() async {
     final response = await this.get('/api/me', useAuthHeaders: true);
     _cartItems = _getCartItemsList(response['data']['cart']['data']);
-    print('Cart Items ' + _cartItems.toString());
     _broadcasterService.emit(eventType: BroadcasterEventType.bootstrapped);
   }
 
