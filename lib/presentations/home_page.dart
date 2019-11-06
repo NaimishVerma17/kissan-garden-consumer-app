@@ -37,6 +37,14 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
         _loadUserData();
       });
     });
+    _broadcasterService
+        .on(BroadcasterEventType.logout)
+        .takeUntil(distroy$)
+        .listen((data) {
+      setState(() {
+        _isLoggedIn = false;
+      });
+    });
     _fetchCategories();
     super.initState();
   }
@@ -67,7 +75,7 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
           !_isLoggedIn
               ? IconButton(
                   icon: Icon(
-                    Icons.exit_to_app,
+                    Icons.person,
                     size: 32.0,
                     color: Styles.primaryColor,
                   ),

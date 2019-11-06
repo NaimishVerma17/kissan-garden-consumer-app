@@ -1,6 +1,7 @@
 import 'package:kissan_garden/models/responses/login_response.dart';
 import 'package:kissan_garden/models/user.dart';
 import 'package:kissan_garden/services/api_service.dart';
+import 'package:kissan_garden/services/broadcaster_service.dart';
 import 'package:kissan_garden/services/preferences_service.dart';
 
 class AuthService extends ApiService {
@@ -10,6 +11,9 @@ class AuthService extends ApiService {
 
   factory AuthService.getInstance() => _instance;
   final PreferencesService _preferencesService = PreferencesService();
+
+  final BroadcasterService _broadcasterService =
+      BroadcasterService.getInstance();
 
   Future<Map<String, dynamic>> sendOtp(Map<String, String> body) {
     return this.post('/api/send-otp', body: body, useAuthHeaders: false);
@@ -25,6 +29,16 @@ class AuthService extends ApiService {
           .setLoggedInUser(User.fromJson(response['data']));
 
       return LoginResponse(response['token'], User.fromJson(response['data']));
+    } catch (error) {
+      throw (error);
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      await _preferencesService.removeAuthToken();
+      await _preferencesService.removeLoggedInUser();
+      _broadcasterService.emit(eventType: BroadcasterEventType.logout);
     } catch (error) {
       throw (error);
     }

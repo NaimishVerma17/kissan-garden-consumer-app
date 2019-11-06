@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kissan_garden/services/auth_service.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
 class KisaanDrawer extends StatelessWidget {
   bool _isLoggedIn;
+
+  AuthService _authService = AuthService.getInstance();
 
   KisaanDrawer(this._isLoggedIn);
 
@@ -94,9 +97,28 @@ class KisaanDrawer extends StatelessWidget {
                 style: Styles.drawerItemsText(),
               ),
             ),
+            _isLoggedIn
+                ? ListTile(
+                    onTap: () => _logout(context),
+                    leading: Icon(
+                      Icons.exit_to_app,
+                      size: 24.0,
+                      color: Colors.white,
+                    ),
+                    title: Text(
+                      'Logout',
+                      style: Styles.drawerItemsText(),
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ),
     );
+  }
+
+  _logout(BuildContext context) async {
+    await _authService.logout();
+    Navigator.of(context).pop();
   }
 }

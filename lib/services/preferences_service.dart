@@ -22,6 +22,10 @@ class PreferencesService {
     return (await this._getInstance()).getString(Constants.AUTH_TOKEN);
   }
 
+  Future<bool> removeAuthToken() async {
+    return (await this._getInstance()).remove(Constants.AUTH_TOKEN);
+  }
+
   setLoggedInUser(User user) async {
     (await this._getInstance())
         .setString(Constants.LOGGED_IN_USER, user.toJson().toString());
@@ -29,5 +33,9 @@ class PreferencesService {
 
   Future<String> getLoggedInUser() async {
     return (await this._getInstance()).getString(Constants.LOGGED_IN_USER);
+  }
+
+  Future<bool> removeLoggedInUser() async {
+    return (await this._getInstance()).remove(Constants.LOGGED_IN_USER);
   }
 }
