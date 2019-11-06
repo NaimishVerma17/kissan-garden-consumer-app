@@ -35,32 +35,23 @@ class UserService extends ApiService {
     }).toList();
   }
 
-  // TODO: Code optimization
   Future<void> addItem(CategoryItem item) async {
     if (item == null || item.id == null) {
       return;
     }
-    CartItem _matchedItem =
-        _cartItems.firstWhere((i) => i.item['data'].id == item.id, orElse: () => null);
+    CartItem _matchedItem = _cartItems
+        .firstWhere((i) => i.item['data'].id == item.id, orElse: () => null);
     if (_matchedItem != null) {
       int quantity = int.parse(_matchedItem.quantity);
       quantity = quantity + 1;
       try {
-        await _updateCart(item.id, quantity);
-        _cartItems.forEach((CartItem i) {
-          if (i.item['data'].id == item.id) {
-            int quantity = int.parse(i.quantity);
-            quantity++;
-            i.quantity = quantity.toString();
-          }
-        });
+        final response = await _updateCart(item.id, quantity);
+        _cartItems = _getCartItemsList(response['data']);
       } catch (error) {}
     } else {
       try {
-        await _updateCart(item.id, 1);
-        CartItem cartItem = CartItem.formJson(
-            {'id': item.id, 'qty': '1', 'item': item.toJson()});
-        _cartItems.add(cartItem);
+        final response = await _updateCart(item.id, 1);
+        _cartItems = _getCartItemsList(response['data']);
       } catch (error) {}
     }
   }
@@ -69,33 +60,22 @@ class UserService extends ApiService {
     if (item == null || item.id == null) {
       return;
     }
-    CartItem _matchedItem =
-        _cartItems.firstWhere((i) => i.item['data'].id == item.id, orElse: () => null);
+    CartItem _matchedItem = _cartItems
+        .firstWhere((i) => i.item['data'].id == item.id, orElse: () => null);
     if (_matchedItem != null) {
       int quantity = int.parse(_matchedItem.quantity);
       quantity = quantity - 1;
       try {
-        await _updateCart(item.id, quantity);
-        if (quantity > 0) {
-          int _quantity;
-          _cartItems.forEach((CartItem i) {
-            if (i.item['data'].id == item.id) {
-              _quantity = int.parse(i.quantity);
-              _quantity--;
-              i.quantity = _quantity.toString();
-            }
-          });
-        } else {
-          _cartItems.removeWhere((i) => i.id == item.id);
-        }
+        final response = await _updateCart(item.id, quantity);
+        _cartItems = _getCartItemsList(response['data']);
       } catch (error) {}
     }
   }
 
   getQuantity(int id) {
     print(id.toString());
-    CartItem cartItem =
-        _cartItems.firstWhere((i) => i.item['data'].id == id, orElse: () => null);
+    CartItem cartItem = _cartItems.firstWhere((i) => i.item['data'].id == id,
+        orElse: () => null);
     if (cartItem != null) {
       return int.parse(cartItem.quantity);
     } else {
