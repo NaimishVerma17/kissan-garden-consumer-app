@@ -33,8 +33,8 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
         .takeUntil(distroy$)
         .listen((data) {
       setState(() {
-        _isLoggedIn = true;
-        _userService.fetchCart();
+        _isLoading = true;
+        _loadUserData();
       });
     });
     _fetchCategories();
@@ -137,6 +137,15 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
   _navigateToCategory(int id, String title) {
     Navigator.pushNamed(context, RouteUtils.items,
         arguments: {'title': title, 'id': id.toString()});
+  }
+
+  _loadUserData() async {
+    await _userService.fetchCart();
+    await _userService.fetchConfiguration();
+    setState(() {
+      _isLoggedIn = true;
+      _isLoading = false;
+    });
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:kissan_garden/models/cart_item.dart';
 import 'package:kissan_garden/models/category_item.dart';
+import 'package:kissan_garden/models/config.dart';
 import 'package:kissan_garden/models/user.dart';
 import 'package:kissan_garden/services/api_service.dart';
 import 'package:kissan_garden/services/broadcaster_service.dart';
@@ -9,6 +10,7 @@ class UserService extends ApiService {
 
   List<CartItem> _cartItems = new List();
   User _user;
+  Config _config;
   static final UserService _instance = UserService._();
 
   factory UserService.getInstance() => _instance;
@@ -17,23 +19,29 @@ class UserService extends ApiService {
 
   User get user => _user;
 
+  Config get config => _config;
+
   BroadcasterService _broadcasterService = BroadcasterService.getInstance();
 
   bootstrapApp() async {
     final response = await this.get('/api/me', useAuthHeaders: true);
     _cartItems = _getCartItemsList(response['data']['cart']['data']);
+    await fetchConfiguration();
     _broadcasterService.emit(eventType: BroadcasterEventType.bootstrapped);
   }
 
-  fetchCart() async {
+  Future<void> fetchCart() async {
     try {
       final response = await this.get('/api/cart', useAuthHeaders: true);
       _cartItems = _getCartItemsList(response['data']);
     } catch (error) {}
   }
 
-  fetchConfiguration() {
-
+  Future<void> fetchConfiguration() async {
+    try {
+      final response = await this.get('/api/config', useAuthHeaders: true);
+      _config = Config.fromJson(response);
+    } catch (error) {}
   }
 
   Future<void> addItem(CategoryItem item) async {
