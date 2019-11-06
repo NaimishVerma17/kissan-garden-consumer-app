@@ -7,11 +7,15 @@ import 'package:kissan_garden/services/broadcaster_service.dart';
 class UserService extends ApiService {
   UserService._();
 
-  static List<CartItem> _cartItems = new List();
+  List<CartItem> _cartItems = new List();
   User _user;
   static final UserService _instance = UserService._();
 
   factory UserService.getInstance() => _instance;
+
+  List<CartItem> get cartItems => _cartItems;
+
+  User get user => _user;
 
   BroadcasterService _broadcasterService = BroadcasterService.getInstance();
 
@@ -28,10 +32,8 @@ class UserService extends ApiService {
     } catch (error) {}
   }
 
-  List<CartItem> _getCartItemsList(List<dynamic> i) {
-    return i.map((item) {
-      return CartItem.formJson(item);
-    }).toList();
+  fetchConfiguration() {
+
   }
 
   Future<void> addItem(CategoryItem item) async {
@@ -82,14 +84,16 @@ class UserService extends ApiService {
     }
   }
 
+  List<CartItem> _getCartItemsList(List<dynamic> i) {
+    return i.map((item) {
+      return CartItem.formJson(item);
+    }).toList();
+  }
+
   _updateCart(int id, int quantity) async {
     print(quantity);
     final response = await this.post('/api/cart',
         body: {'qty': quantity, 'item_id': id}, useAuthHeaders: true);
     return response;
   }
-
-  List<CartItem> get cartItems => _cartItems;
-
-  User get user => _user;
 }

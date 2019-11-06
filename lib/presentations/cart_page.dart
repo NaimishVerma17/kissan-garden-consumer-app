@@ -30,13 +30,37 @@ class _CartPage extends State<CartPage> {
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Styles.primaryColor),
       ),
-      body: ListView.builder(
-          itemCount: _items.length,
-          itemBuilder: (context, index) {
-            return ItemCard(
-              CategoryItem.fromJson(_items[index].item['data'].toJson()),
-            );
-          }),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: ListView.builder(
+                itemCount: _items.length,
+                itemBuilder: (context, index) {
+                  return ItemCard(
+                    CategoryItem.fromJson(_items[index].item['data'].toJson()),
+                  );
+                }),
+          ),
+          Container(
+            height: 50.0,
+            color: Styles.primaryColor,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                FlatButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Checkout',
+                    style:
+                        TextStyle(color: Styles.primaryColor, fontSize: 18.0),
+                  ),
+                  color: Colors.white,
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
