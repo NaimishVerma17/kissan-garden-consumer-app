@@ -134,8 +134,9 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
     }
   }
 
-  _navigateToCategory(int id) {
-    Navigator.pushNamed(context, RouteUtils.items, arguments: id.toString());
+  _navigateToCategory(int id, String title) {
+    Navigator.pushNamed(context, RouteUtils.items,
+        arguments: {'title': title, 'id': id.toString()});
   }
 
   @override

@@ -25,6 +25,7 @@ class _CartPage extends State<CartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Cart', style: Styles.pageTitleText()),
         elevation: 0.0,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Styles.primaryColor),

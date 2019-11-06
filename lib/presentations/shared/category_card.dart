@@ -12,7 +12,7 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: () => onClick(category.id),
+      onTap: () => onClick(category.id, category.title),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0),

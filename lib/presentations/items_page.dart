@@ -14,6 +14,7 @@ class ItemsPage extends StatefulWidget {
 
 class _ItemsPage extends State<ItemsPage> {
   String _id;
+  String _title;
   bool _isLoading = true;
   ProductService _productService = ProductService.getInstance();
   List<CategoryItem> _items;
@@ -26,13 +27,16 @@ class _ItemsPage extends State<ItemsPage> {
 
   @override
   Widget build(BuildContext context) {
-    if(!_isItemsLoaded){
-      _id = ModalRoute.of(context).settings.arguments;
+    if (!_isItemsLoaded) {
+      Map<String, String> _args = ModalRoute.of(context).settings.arguments;
+      _id = _args['id'];
+      _title = _args['title'];
       _fetchItems();
       _isItemsLoaded = true;
     }
     return Scaffold(
       appBar: AppBar(
+        title: Text(_title, style: Styles.pageTitleText()),
         elevation: 0.0,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Styles.primaryColor),
