@@ -1,28 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:kissan_garden/models/category_item.dart';
+import 'package:kissan_garden/services/auth_service.dart';
+import 'package:kissan_garden/services/user_service.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
 class ItemCard extends StatefulWidget {
   CategoryItem item;
-  int itemCount;
 
-  ItemCard(this.item, {this.itemCount});
+  ItemCard(this.item);
 
   @override
   State<StatefulWidget> createState() {
-    if (itemCount == null) {
-      itemCount = 0;
-    }
-    return _ItemCard(this.item, this.itemCount);
+    return _ItemCard(this.item);
   }
 }
 
 class _ItemCard extends State<ItemCard> {
   CategoryItem item;
-  bool _isAdded = false;
-  int itemCount;
+  int itemCount = 0;
+  bool _isLoggedIn = false;
+  UserService _userService = UserService.getInstance();
+  AuthService _authService = AuthService.getInstance();
 
-  _ItemCard(this.item, this.itemCount);
+  _ItemCard(this.item);
+
+  @override
+  void initState() {
+    _checkIsLoggedIn();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,67 +84,77 @@ class _ItemCard extends State<ItemCard> {
                 ],
               ),
             ),
-            Container(
-              child: !_isAdded
-                  ? Container(
-                      width: 58.0,
-                      child: FlatButton(
-                        color: Styles.primaryColor,
-                        onPressed: () {
-                          setState(() {
-                            _isAdded = true;
-                          });
-                        },
-                        child: Text(
-                          'Add',
-                          style: TextStyle(color: Colors.white, fontSize: 12.0),
-                        ),
-                      ),
-                    )
-                  : Container(
-                      child: Row(
-                        children: <Widget>[
-                          IconButton(
-                            onPressed: _onRemovePressed,
-                            icon: Icon(
-                              Icons.remove_circle_outline,
+            _isLoggedIn
+                ? Container(
+                    child: itemCount == 0
+                        ? Container(
+                            width: 58.0,
+                            child: FlatButton(
                               color: Styles.primaryColor,
-                              size: 20.0,
+                              onPressed: _onAddPressed,
+                              child: Text(
+                                'Add',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12.0),
+                              ),
+                            ),
+                          )
+                        : Container(
+                            child: Row(
+                              children: <Widget>[
+                                IconButton(
+                                  onPressed: _onRemovePressed,
+                                  icon: Icon(
+                                    Icons.remove_circle_outline,
+                                    color: Styles.primaryColor,
+                                    size: 20.0,
+                                  ),
+                                ),
+                                Text(
+                                  itemCount.toString(),
+                                  style: TextStyle(fontSize: 15.0),
+                                ),
+                                IconButton(
+                                  onPressed: _onAddPressed,
+                                  icon: Icon(
+                                    Icons.add_circle_outline,
+                                    color: Styles.primaryColor,
+                                    size: 20.0,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Text(
-                            itemCount.toString(),
-                            style: TextStyle(fontSize: 15.0),
-                          ),
-                          IconButton(
-                            onPressed: _onAddPressed,
-                            icon: Icon(
-                              Icons.add_circle_outline,
-                              color: Styles.primaryColor,
-                              size: 20.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-            ),
+                  )
+                : Container(),
           ],
         ),
       ),
     );
   }
 
-  _onAddPressed() {
+  _onAddPressed() async {
+    await _userService.addItem(item);
+
     setState(() {
       itemCount++;
     });
   }
 
-  _onRemovePressed() {
+  _onRemovePressed() async {
+    await _userService.addItem(item);
+
     setState(() {
       itemCount--;
-      if (itemCount == 0) {
-        _isAdded = false;
+    });
+  }
+
+  _checkIsLoggedIn() async {
+    final res = await _authService.isLoggedIn();
+    setState(() {
+      _isLoggedIn = res;
+      if(_isLoggedIn) {
+        itemCount = _userService.getQuantity(item.id);
       }
     });
   }

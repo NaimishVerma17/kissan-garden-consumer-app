@@ -1,13 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:kissan_garden/models/mixins/unsubscribe.dart';
 import 'package:kissan_garden/services/auth_service.dart';
+import 'package:kissan_garden/services/broadcaster_service.dart';
+import 'package:kissan_garden/services/user_service.dart';
 import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatelessWidget with UnsubscribeMixin {
   AuthService _authService = AuthService.getInstance();
+
+  BroadcasterService _broadcasterService = BroadcasterService.getInstance();
+
+  UserService _userService = UserService.getInstance();
+
+  bool _isLoggedIn;
 
   @override
   Widget build(BuildContext context) {
+    _broadcasterService
+        .on(BroadcasterEventType.bootstrapped)
+        .takeUntil(distroy$)
+        .listen((data) {
+      Navigator.pushReplacementNamed(context, RouteUtils.home,
+          arguments: _isLoggedIn);
+      this._disposeBroadcaster();
+    });
     _loadHomeScreen(context);
     return Scaffold(
       body: Container(
@@ -31,8 +48,15 @@ class SplashPage extends StatelessWidget {
   }
 
   void _loadHomeScreen(BuildContext context) async {
-    bool _isLoggedIn = await _authService.isLoggedIn();
-    Navigator.pushReplacementNamed(context, RouteUtils.home,
-        arguments: _isLoggedIn);
+    _isLoggedIn = await _authService.isLoggedIn();
+    if (_isLoggedIn) {
+      _userService.bootstrapApp();
+    } else {
+      _broadcasterService.emit(eventType: BroadcasterEventType.bootstrapped);
+    }
+  }
+
+  _disposeBroadcaster() {
+    super.onDispose();
   }
 }

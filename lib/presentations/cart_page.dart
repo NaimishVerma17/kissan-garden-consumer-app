@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:kissan_garden/services/cart_service.dart';
+import 'package:kissan_garden/models/cart_item.dart';
+import 'package:kissan_garden/models/category_item.dart';
+import 'package:kissan_garden/presentations/shared/item_card.dart';
+import 'package:kissan_garden/services/user_service.dart';
+import 'package:kissan_garden/utils/styles.dart';
 
 class CartPage extends StatefulWidget {
   @override
@@ -9,25 +13,33 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPage extends State<CartPage> {
-  CartService _cartService = CartService.getInstance();
+  UserService _userService = UserService.getInstance();
+  List<CartItem> _items;
 
   @override
   void initState() {
-    // TODO: implement initState
+    _items = _userService.cartItems;
+    print('Cart Items' + _items.toString());
     _fetchCart();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('Cart'),
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Styles.primaryColor),
       ),
+      body: ListView.builder(
+            itemCount: _items.length,
+            itemBuilder: (context, index) {
+              return ItemCard(
+                CategoryItem.fromJson(_items[index].item['data'].toJson()),
+              );
+            }),
     );
   }
 
-  _fetchCart() async {
-    final cart = await _cartService.fetchCart();
-    print(cart);
-  }
+  _fetchCart() {}
 }

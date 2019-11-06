@@ -6,6 +6,7 @@ import 'package:kissan_garden/presentations/shared/drawer.dart';
 import 'package:kissan_garden/presentations/shared/search_bar.dart';
 import 'package:kissan_garden/services/broadcaster_service.dart';
 import 'package:kissan_garden/services/product_service.dart';
+import 'package:kissan_garden/services/user_service.dart';
 import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
@@ -19,6 +20,7 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> with UnsubscribeMixin {
   BroadcasterService _broadcasterService = BroadcasterService.getInstance();
   ProductService _productService = ProductService.getInstance();
+  UserService _userService = UserService.getInstance();
   bool _isLoggedIn = false;
   bool _isLoading = true;
   List<Category> _categories;
@@ -32,6 +34,7 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
         .listen((data) {
       setState(() {
         _isLoggedIn = true;
+        _userService.fetchCart();
       });
     });
     _fetchCategories();
