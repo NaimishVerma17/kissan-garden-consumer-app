@@ -6,6 +6,8 @@ abstract class Styles {
   static const Color errorColor = Color(0xFFB83227);
   static const Color subHeadingColor = Color(0xFF777E8B);
   static const Color homeBackgroundColor = Color(0xFFF9F2F2);
+  static const Color textBackgroundColor = Color(0xFFECF1F1);
+  static const Color linkColor = Color(0xFF0000EE);
 
   static TextStyle pageTitleText() {
     return TextStyle(
@@ -47,6 +49,7 @@ abstract class Styles {
       errorStyle: TextStyle(color: Styles.errorColor),
     );
   }
+
   static showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -55,7 +58,6 @@ abstract class Styles {
         timeInSecForIos: 2,
         backgroundColor: primaryColor,
         textColor: Colors.white,
-        fontSize: 16.0
-    );
+        fontSize: 16.0);
   }
 }

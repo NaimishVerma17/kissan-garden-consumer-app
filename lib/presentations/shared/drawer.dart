@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kissan_garden/services/auth_service.dart';
 import 'package:kissan_garden/utils/styles.dart';
+import 'package:kissan_garden/utils/route_utils.dart';
 
 class KisaanDrawer extends StatelessWidget {
   bool _isLoggedIn;
@@ -36,8 +37,10 @@ class KisaanDrawer extends StatelessWidget {
                 style: Styles.drawerItemsText(),
               ),
             ),
-            _isLoggedIn
-                ? ListTile(
+//            _isLoggedIn
+//                ?
+            ListTile(
+              onTap: () => _navigateToPage(RouteUtils.savedAddresses, context),
                     leading: Icon(
                       Icons.location_on,
                       size: 24.0,
@@ -47,8 +50,8 @@ class KisaanDrawer extends StatelessWidget {
                       'Saved addresses',
                       style: Styles.drawerItemsText(),
                     ),
-                  )
-                : Container(),
+                  ),
+//                : Container(),
             _isLoggedIn
                 ? ListTile(
                     leading: Icon(
@@ -120,5 +123,13 @@ class KisaanDrawer extends StatelessWidget {
   _logout(BuildContext context) async {
     await _authService.logout();
     Navigator.of(context).pop();
+  }
+
+  _navigateToPage(String route, BuildContext context) {
+    if (route == null) {
+      return;
+    }
+    Navigator.of(context).pop();
+    Navigator.of(context).pushNamed(route);
   }
 }

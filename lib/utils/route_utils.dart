@@ -8,6 +8,7 @@ abstract class RouteUtils {
   static const verifyOTP = '/verify-otp';
   static const items = '/items';
   static const cart = '/cart';
+  static const savedAddresses = '/saved-addresses';
 
   static final Map<String, WidgetBuilder> routes = {
     splash: (context) => SplashPage(),
@@ -16,5 +17,6 @@ abstract class RouteUtils {
     verifyOTP: (context) => VerifyOtpPage(),
     items: (context) => ItemsPage(),
     cart: (context) => CartPage(),
+    savedAddresses: (context) => SavedAddressesPage()
   };
 }
