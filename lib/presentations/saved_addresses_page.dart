@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
 class SavedAddressesPage extends StatefulWidget {
@@ -28,25 +29,27 @@ class _SavedAddressesPage extends State<SavedAddressesPage> {
               width: _width,
               height: 54.0,
               child: FlatButton(
-                  onPressed: () {},
-                  color: Styles.textBackgroundColor,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        Icons.add_circle_outline,
-                        color: Styles.linkColor,
-                      ),
-                      SizedBox(
-                        width: 5.0,
-                      ),
-                      Text(
-                        'ADD NEW ADDRESS',
-                        style:
-                            TextStyle(color: Styles.linkColor, fontSize: 16.0),
-                      ),
-                    ],
-                  )),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(RouteUtils.addAddress);
+                },
+                color: Styles.textBackgroundColor,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      Icons.add_circle_outline,
+                      color: Styles.linkColor,
+                    ),
+                    SizedBox(
+                      width: 5.0,
+                    ),
+                    Text(
+                      'ADD NEW ADDRESS',
+                      style: TextStyle(color: Styles.linkColor, fontSize: 16.0),
+                    ),
+                  ],
+                ),
+              ),
             )
           ],
         ),
