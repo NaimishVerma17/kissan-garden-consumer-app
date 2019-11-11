@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kissan_garden/presentations/add_address_page.dart';
 import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
@@ -30,7 +31,10 @@ class _SavedAddressesPage extends State<SavedAddressesPage> {
               height: 54.0,
               child: FlatButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(RouteUtils.addAddress);
+                  showDialog(
+                    context: context,
+                    builder: (context) => AddAddressPage(),
+                  );
                 },
                 color: Styles.textBackgroundColor,
                 child: Row(

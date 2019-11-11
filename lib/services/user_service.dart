@@ -1,3 +1,4 @@
+import 'package:kissan_garden/models/address.dart';
 import 'package:kissan_garden/models/cart_item.dart';
 import 'package:kissan_garden/models/category_item.dart';
 import 'package:kissan_garden/models/config.dart';
@@ -9,23 +10,22 @@ class UserService extends ApiService {
   UserService._();
 
   List<CartItem> _cartItems = new List();
-  User _user;
+
+  List<Address> _savedAddresses = new List();
+
   Config _config;
+
   static final UserService _instance = UserService._();
 
   factory UserService.getInstance() => _instance;
-
-  List<CartItem> get cartItems => _cartItems;
-
-  User get user => _user;
-
-  Config get config => _config;
 
   BroadcasterService _broadcasterService = BroadcasterService.getInstance();
 
   bootstrapApp() async {
     final response = await this.get('/api/me', useAuthHeaders: true);
     _cartItems = _getCartItemsList(response['data']['cart']['data']);
+    _savedAddresses =
+        _getSavedAddressesList(response['data']['savedAddress']['data']);
     await fetchConfiguration();
     _broadcasterService.emit(eventType: BroadcasterEventType.bootstrapped);
   }
@@ -81,6 +81,19 @@ class UserService extends ApiService {
     }
   }
 
+  Future<void> addAddress(Map<String, String> address) async {
+    print('add address api 1');
+    try {
+      final response = await this
+          .post('/api/saved-addresses', body: address, useAuthHeaders: true);
+      print('add address api 2'+ response.toString());
+      Address _address = Address.fromJson(response['data']);
+      _savedAddresses.add(_address);
+    } catch (error) {
+      print('error'+error.toString());
+    }
+  }
+
   getQuantity(int id) {
     print(id.toString());
     CartItem cartItem = _cartItems.firstWhere((i) => i.item['data'].id == id,
@@ -92,9 +105,17 @@ class UserService extends ApiService {
     }
   }
 
+  // private methods
+
   List<CartItem> _getCartItemsList(List<dynamic> i) {
     return i.map((item) {
-      return CartItem.formJson(item);
+      return CartItem.fromJson(item);
+    }).toList();
+  }
+
+  List<Address> _getSavedAddressesList(List<dynamic> i) {
+    return i.map((item) {
+      return Address.fromJson(item);
     }).toList();
   }
 
@@ -104,4 +125,12 @@ class UserService extends ApiService {
         body: {'qty': quantity, 'item_id': id}, useAuthHeaders: true);
     return response;
   }
+
+  // getters
+
+  List<CartItem> get cartItems => _cartItems;
+
+  List<Address> get savedAddresses => _savedAddresses;
+
+  Config get config => _config;
 }

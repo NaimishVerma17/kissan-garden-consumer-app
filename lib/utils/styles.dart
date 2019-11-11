@@ -7,7 +7,7 @@ abstract class Styles {
   static const Color subHeadingColor = Color(0xFF777E8B);
   static const Color homeBackgroundColor = Color(0xFFF9F2F2);
   static const Color textBackgroundColor = Color(0xFFECF1F1);
-  static const Color linkColor = Color(0xFF0000EE);
+  static const Color linkColor = Color(0xFF0ABDE3);
 
   static TextStyle pageTitleText() {
     return TextStyle(

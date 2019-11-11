@@ -25,4 +25,9 @@ class BroadcasterService {
   }
 }
 
-enum BroadcasterEventType { loginComplete, bootstrapped, logout }
+enum BroadcasterEventType {
+  loginComplete,
+  bootstrapped,
+  logout,
+  addressChanged
+}

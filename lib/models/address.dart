@@ -4,6 +4,9 @@ part 'address.g.dart';
 
 @JsonSerializable()
 class Address {
+  @JsonKey(name: 'id')
+  int id;
+
   @JsonKey(name: 'full_address')
   String fullAddress;
 
@@ -13,7 +16,7 @@ class Address {
   @JsonKey(name: 'pin_code')
   String pinCode;
 
-  Address(this.fullAddress, this.city, this.pinCode);
+  Address(this.fullAddress, this.city, this.pinCode, {this.id});
 
   factory Address.fromJson(Map<String, dynamic> json) =>
       _$AddressFromJson(json);

@@ -37,8 +37,8 @@ class KisaanDrawer extends StatelessWidget {
                 style: Styles.drawerItemsText(),
               ),
             ),
-//            _isLoggedIn
-//                ?
+            _isLoggedIn
+                ?
             ListTile(
               onTap: () => _navigateToPage(RouteUtils.savedAddresses, context),
                     leading: Icon(
@@ -50,8 +50,8 @@ class KisaanDrawer extends StatelessWidget {
                       'Saved addresses',
                       style: Styles.drawerItemsText(),
                     ),
-                  ),
-//                : Container(),
+                  )
+                : Container(),
             _isLoggedIn
                 ? ListTile(
                     leading: Icon(
