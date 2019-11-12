@@ -92,6 +92,21 @@ class UserService extends ApiService {
     }
   }
 
+  Future<void> updateAddress(Map<String, String> address, int id) async {
+    try {
+      final response = await this.put('/api/saved-addresses/${id}',
+          body: address, useAuthHeaders: true);
+      Address _address = Address.fromJson(response['data']);
+      _savedAddresses.forEach((Address a) {
+        if (a.id == id) {
+          a = _address;
+        }
+      });
+    } catch (error) {
+      throw (error);
+    }
+  }
+
   getQuantity(int id) {
     print(id.toString());
     CartItem cartItem = _cartItems.firstWhere((i) => i.item['data'].id == id,

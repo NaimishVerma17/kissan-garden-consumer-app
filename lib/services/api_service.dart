@@ -21,6 +21,14 @@ abstract class ApiService {
     return _getResponse(response);
   }
 
+  Future<Map<String, dynamic>> put(String url,
+      {@required body, bool useAuthHeaders = true}) async {
+    final response = await http.post(this._getUrl(url),
+        headers: (await this._getHeaders(useAuthHeaders: useAuthHeaders)),
+        body: json.encode(body));
+    return _getResponse(response);
+  }
+
   String _getUrl(String url) {
     return AppConfig.baseUrl + url;
   }

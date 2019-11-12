@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:kissan_garden/models/address.dart';
 import 'package:kissan_garden/presentations/shared/kisaan_button.dart';
 import 'package:kissan_garden/services/user_service.dart';
 import 'package:kissan_garden/utils/Validators.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
 class AddAddressPage extends StatefulWidget {
+  Address address;
+
+  AddAddressPage({this.address});
+
   @override
-  State createState() => _AddAddressPage();
+  State createState() => _AddAddressPage(address);
 }
 
 class _AddAddressPage extends State<AddAddressPage> {
+  Address _address;
+
+  _AddAddressPage(this._address);
+
   final GlobalKey<FormState> _formKey = new GlobalKey();
   final UserService _userService = UserService.getInstance();
   String _fullAddress;
@@ -23,7 +32,7 @@ class _AddAddressPage extends State<AddAddressPage> {
       actions: <Widget>[
         FlatButton(
           child: Text(
-            'Add',
+            _address != null ? 'Update' : 'Add',
             style: TextStyle(
               fontSize: 16.0,
               color: Styles.primaryColor,
@@ -51,6 +60,7 @@ class _AddAddressPage extends State<AddAddressPage> {
             children: <Widget>[
               TextFormField(
                 maxLines: 4,
+                initialValue: _address != null ? _address.fullAddress : null,
                 keyboardType: TextInputType.text,
                 validator: Validators.validateForNull,
                 decoration: Styles.getInputDecoration('Full address'),
@@ -62,7 +72,7 @@ class _AddAddressPage extends State<AddAddressPage> {
                 height: 8.0,
               ),
               TextFormField(
-                maxLength: 10,
+                initialValue: _address != null ? _address.city : null,
                 keyboardType: TextInputType.text,
                 validator: Validators.validateForNull,
                 decoration: Styles.getInputDecoration('City'),
@@ -75,6 +85,7 @@ class _AddAddressPage extends State<AddAddressPage> {
               ),
               TextFormField(
                 maxLength: 6,
+                initialValue: _address != null ? _address.pinCode : null,
                 keyboardType: TextInputType.number,
                 validator: Validators.validatePinCode,
                 decoration: Styles.getInputDecoration('Pincode'),
@@ -106,7 +117,11 @@ class _AddAddressPage extends State<AddAddressPage> {
         'pin_code': _pinCode
       };
       try {
-        await _userService.addAddress(_data);
+        if (_address == null) {
+          await _userService.addAddress(_data);
+        } else {
+          await _userService.addAddress(_data);
+        }
         _isLoading = false;
         Navigator.of(context).pop();
       } catch (error) {
