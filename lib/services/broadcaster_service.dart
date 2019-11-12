@@ -11,12 +11,11 @@ class BroadcasterService {
 
   final PublishSubject<BroadcasterEvent> _publishSubject = PublishSubject();
 
-  void emit(
-      {@required BroadcasterEventType eventType, Map<String, dynamic> data}) {
+  void emit({@required BroadcasterEventType eventType, dynamic data}) {
     _publishSubject.add(BroadcasterEvent(eventType: eventType, data: data));
   }
 
-  Observable<Map<String, dynamic>> on(BroadcasterEventType eventType) {
+  Observable<dynamic> on(BroadcasterEventType eventType) {
     return new Observable(_publishSubject.stream).where((BroadcasterEvent e) {
       return e.eventType == eventType;
     }).map((BroadcasterEvent e) {

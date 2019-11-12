@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kissan_garden/models/address.dart';
+import 'package:kissan_garden/models/mixins/unsubscribe.dart';
 import 'package:kissan_garden/presentations/popups/add_address.dart';
+import 'package:kissan_garden/presentations/shared/saved_address_card.dart';
+import 'package:kissan_garden/services/broadcaster_service.dart';
+import 'package:kissan_garden/services/user_service.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
 class SavedAddressesPage extends StatefulWidget {
@@ -7,7 +12,28 @@ class SavedAddressesPage extends StatefulWidget {
   _SavedAddressesPage createState() => _SavedAddressesPage();
 }
 
-class _SavedAddressesPage extends State<SavedAddressesPage> {
+class _SavedAddressesPage extends State<SavedAddressesPage>
+    with UnsubscribeMixin {
+  List<Address> _savedAddresses = new List();
+
+  BroadcasterService _broadcasterService = BroadcasterService.getInstance();
+
+  UserService _userService = UserService.getInstance();
+
+  @override
+  void initState() {
+    _savedAddresses = _userService.savedAddresses;
+    _broadcasterService
+        .on(BroadcasterEventType.addressChanged)
+        .takeUntil(distroy$)
+        .listen((data) {
+      setState(() {
+        _savedAddresses = List.from(data);
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double _width = MediaQuery.of(context).size.width;
@@ -49,8 +75,19 @@ class _SavedAddressesPage extends State<SavedAddressesPage> {
                     Text(
                       'ADD NEW ADDRESS',
                       style: TextStyle(color: Styles.linkColor, fontSize: 16.0),
-                    ),
+                    )
                   ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: ListView.builder(
+                  itemCount: _savedAddresses.length,
+                  itemBuilder: (context, index) => GestureDetector(
+                      child: SavedAddressCard(
+                          _savedAddresses[index], _addressClicked)),
                 ),
               ),
             )
@@ -59,4 +96,6 @@ class _SavedAddressesPage extends State<SavedAddressesPage> {
       ),
     );
   }
+
+  void _addressClicked() {}
 }

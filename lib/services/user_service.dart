@@ -82,15 +82,16 @@ class UserService extends ApiService {
   }
 
   Future<void> addAddress(Map<String, String> address) async {
-    print('add address api 1');
     try {
       final response = await this
           .post('/api/saved-addresses', body: address, useAuthHeaders: true);
-      print('add address api 2'+ response.toString());
       Address _address = Address.fromJson(response['data']);
       _savedAddresses.add(_address);
+//      _broadcasterService.emit(
+//          eventType: BroadcasterEventType.addressChanged,
+//          data: _savedAddresses);
     } catch (error) {
-      print('error'+error.toString());
+      throw (error);
     }
   }
 

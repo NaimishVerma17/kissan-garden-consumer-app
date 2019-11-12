@@ -38,6 +38,10 @@ abstract class Styles {
         color: subHeadingColor, fontSize: 14.0, fontWeight: FontWeight.w500);
   }
 
+  static TextStyle labelText() {
+    return TextStyle(fontSize: 17.0, fontWeight: FontWeight.w500);
+  }
+
   static InputDecoration getInputDecoration(String hint) {
     return InputDecoration(
       border: OutlineInputBorder(

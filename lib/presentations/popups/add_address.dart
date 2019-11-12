@@ -50,7 +50,6 @@ class _AddAddressPage extends State<AddAddressPage> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                maxLength: 10,
                 maxLines: 4,
                 keyboardType: TextInputType.text,
                 validator: Validators.validateForNull,
