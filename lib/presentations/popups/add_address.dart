@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kissan_garden/models/address.dart';
-import 'package:kissan_garden/presentations/shared/kisaan_button.dart';
 import 'package:kissan_garden/services/user_service.dart';
 import 'package:kissan_garden/utils/Validators.dart';
 import 'package:kissan_garden/utils/styles.dart';
@@ -38,7 +37,7 @@ class _AddAddressPage extends State<AddAddressPage> {
               color: Styles.primaryColor,
             ),
           ),
-          onPressed: _addAddress,
+          onPressed: !_isLoading ? _addAddress : null,
         ),
         FlatButton(
           child: Text(
@@ -49,7 +48,7 @@ class _AddAddressPage extends State<AddAddressPage> {
             ),
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            if (!_isLoading) Navigator.of(context).pop();
           },
         )
       ],
