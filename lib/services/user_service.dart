@@ -87,9 +87,6 @@ class UserService extends ApiService {
           .post('/api/saved-addresses', body: address, useAuthHeaders: true);
       Address _address = Address.fromJson(response['data']);
       _savedAddresses.add(_address);
-//      _broadcasterService.emit(
-//          eventType: BroadcasterEventType.addressChanged,
-//          data: _savedAddresses);
     } catch (error) {
       throw (error);
     }

@@ -3,7 +3,6 @@ import 'package:kissan_garden/models/address.dart';
 import 'package:kissan_garden/models/mixins/unsubscribe.dart';
 import 'package:kissan_garden/presentations/popups/add_address.dart';
 import 'package:kissan_garden/presentations/shared/saved_address_card.dart';
-import 'package:kissan_garden/services/broadcaster_service.dart';
 import 'package:kissan_garden/services/user_service.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
@@ -16,21 +15,11 @@ class _SavedAddressesPage extends State<SavedAddressesPage>
     with UnsubscribeMixin {
   List<Address> _savedAddresses = new List();
 
-  BroadcasterService _broadcasterService = BroadcasterService.getInstance();
-
   UserService _userService = UserService.getInstance();
 
   @override
   void initState() {
     _savedAddresses = _userService.savedAddresses;
-    _broadcasterService
-        .on(BroadcasterEventType.addressChanged)
-        .takeUntil(distroy$)
-        .listen((data) {
-      setState(() {
-        _savedAddresses = List.from(data);
-      });
-    });
     super.initState();
   }
 
