@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kissan_garden/models/address.dart';
+import 'package:kissan_garden/presentations/shared/kisaan_button.dart';
 import 'package:kissan_garden/services/user_service.dart';
+import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
 class OrderPage extends StatelessWidget {
@@ -41,6 +43,7 @@ class OrderPage extends StatelessWidget {
   }
 
   Widget _getAddressSelectionTiles(BuildContext context) {
+    final double _width = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -52,6 +55,23 @@ class OrderPage extends StatelessWidget {
               fontSize: 18.0,
               fontWeight: FontWeight.w700,
             ),
+          ),
+        ),
+        SizedBox(
+          height: 15.0,
+        ),
+        Container(
+          width: _width,
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          child: FlatButton(
+            color: Styles.primaryColor,
+            child: Text(
+              'ADD/EDIT SAVED ADDRESSES',
+              style: TextStyle(color: Colors.white, fontSize: 15.0),
+            ),
+            onPressed: () {
+              _addEditSavedAddresses(context);
+            },
           ),
         ),
         SizedBox(
@@ -165,7 +185,10 @@ class OrderPage extends StatelessWidget {
               groupValue: _deliveryTimeSlot,
               onChanged: _timeSlotSelected,
             ),
-            title: Text(_timeSlots[index],style: TextStyle(fontSize: 16.0),),
+            title: Text(
+              _timeSlots[index],
+              style: TextStyle(fontSize: 16.0),
+            ),
           ),
         )
       ],
@@ -182,4 +205,7 @@ class OrderPage extends StatelessWidget {
     _deliveryTimeSlot = value;
   }
 
+  void _addEditSavedAddresses(BuildContext context) {
+    Navigator.of(context).pushNamed(RouteUtils.savedAddresses);
+  }
 }
