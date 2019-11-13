@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:kissan_garden/models/address.dart';
-import 'package:kissan_garden/presentations/shared/kisaan_button.dart';
 import 'package:kissan_garden/services/user_service.dart';
 import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
-class OrderPage extends StatelessWidget {
+class OrderPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _OrderPage();
+  }
+}
+
+class _OrderPage extends State<OrderPage> {
   int _addressId;
   String _deliveryTimeSlot;
 
   final UserService _userService = UserService.getInstance();
-  final ScrollController _scrollController = new ScrollController();
 
   List<Address> _savedAddresses;
   List<String> _timeSlots;
@@ -33,8 +38,9 @@ class OrderPage extends StatelessWidget {
         slivers: <Widget>[
           SliverList(
             delegate: SliverChildListDelegate([
-              _getAddressSelectionTiles(context),
-              _getTimeSlotTiles(context)
+              _getAddressSelectionTiles(),
+              _getTimeSlotTiles(context),
+              _getOrderButton()
             ]),
           )
         ],
@@ -42,7 +48,7 @@ class OrderPage extends StatelessWidget {
     );
   }
 
-  Widget _getAddressSelectionTiles(BuildContext context) {
+  Widget _getAddressSelectionTiles() {
     final double _width = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,7 +76,7 @@ class OrderPage extends StatelessWidget {
               style: TextStyle(color: Colors.white, fontSize: 15.0),
             ),
             onPressed: () {
-              _addEditSavedAddresses(context);
+              _addEditSavedAddresses();
             },
           ),
         ),
@@ -90,7 +96,7 @@ class OrderPage extends StatelessWidget {
                     value: _savedAddresses[index].id,
                     groupValue: _addressId,
                     onChanged: _addressSelected,
-                    activeColor: Colors.black,
+                    activeColor: Styles.primaryColor,
                   ),
                   SizedBox(
                     width: 5.0,
@@ -181,6 +187,7 @@ class OrderPage extends StatelessWidget {
           physics: ClampingScrollPhysics(),
           itemBuilder: (context, index) => ListTile(
             leading: Radio(
+              activeColor: Styles.primaryColor,
               value: _timeSlots[index],
               groupValue: _deliveryTimeSlot,
               onChanged: _timeSlotSelected,
@@ -195,17 +202,47 @@ class OrderPage extends StatelessWidget {
     );
   }
 
+  Widget _getOrderButton(){
+    final double _width = MediaQuery.of(context).size.width;
+    return Container(
+      width: _width,
+      padding: EdgeInsets.symmetric(horizontal: 15.0),
+      child: FlatButton(
+        color: Styles.primaryColor,
+        child: Text(
+          'PLACE ORDER',
+          style: TextStyle(color: Colors.white, fontSize: 15.0),
+        ),
+        onPressed: _placeOrder,
+      ),
+    );
+  }
+
   void _addressSelected(int value) {
-    print(value);
-    _addressId = value;
+    setState(() {
+      _addressId = value;
+    });
   }
 
   void _timeSlotSelected(String value) {
-    print(value);
-    _deliveryTimeSlot = value;
+    setState(() {
+      _deliveryTimeSlot = value;
+    });
   }
 
-  void _addEditSavedAddresses(BuildContext context) {
+  void _addEditSavedAddresses() {
     Navigator.of(context).pushNamed(RouteUtils.savedAddresses);
+  }
+
+  void _placeOrder() {
+    if(_addressId == null) {
+      Styles.showToast('Please select a delivery address');
+      return;
+    }
+
+    if(_deliveryTimeSlot == null) {
+      Styles.showToast('Please select a time slot');
+      return;
+    }
   }
 }
