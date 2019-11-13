@@ -6,3 +6,4 @@ export 'package:kissan_garden/presentations/items_page.dart';
 export 'package:kissan_garden/presentations/cart_page.dart';
 export 'package:kissan_garden/presentations/saved_addresses_page.dart';
 export 'package:kissan_garden/presentations/popups/add_address.dart';
+export 'package:kissan_garden/presentations/order_page.dart';

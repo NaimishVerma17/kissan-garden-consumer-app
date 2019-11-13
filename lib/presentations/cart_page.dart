@@ -3,6 +3,7 @@ import 'package:kissan_garden/models/cart_item.dart';
 import 'package:kissan_garden/models/category_item.dart';
 import 'package:kissan_garden/presentations/shared/item_card.dart';
 import 'package:kissan_garden/services/user_service.dart';
+import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
 class CartPage extends StatefulWidget {
@@ -48,7 +49,9 @@ class _CartPage extends State<CartPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(RouteUtils.order);
+                  },
                   child: Text(
                     'Checkout',
                     style:
