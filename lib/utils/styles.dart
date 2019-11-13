@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 abstract class Styles {
   static const Color primaryColor = Color(0xFF487473);
+  static const Color accentColor = Color(0xFF7f9e9d);
   static const Color errorColor = Color(0xFFB83227);
   static const Color subHeadingColor = Color(0xFF777E8B);
   static const Color homeBackgroundColor = Color(0xFFF9F2F2);

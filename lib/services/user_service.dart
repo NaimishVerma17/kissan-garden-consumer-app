@@ -2,6 +2,7 @@ import 'package:kissan_garden/models/address.dart';
 import 'package:kissan_garden/models/cart_item.dart';
 import 'package:kissan_garden/models/category_item.dart';
 import 'package:kissan_garden/models/config.dart';
+import 'package:kissan_garden/models/order.dart';
 import 'package:kissan_garden/models/user.dart';
 import 'package:kissan_garden/services/api_service.dart';
 import 'package:kissan_garden/services/broadcaster_service.dart';
@@ -12,6 +13,8 @@ class UserService extends ApiService {
   List<CartItem> _cartItems = new List();
 
   List<Address> _savedAddresses = new List();
+
+  List<Order> _orders = new List();
 
   Config _config;
 
@@ -107,6 +110,24 @@ class UserService extends ApiService {
     }
   }
 
+  Future<List<Order>> fetchOrders() async {
+    try {
+      final response = await this.get('/api/orders', useAuthHeaders: true);
+      return _getOrdersList(response['data']);
+    } catch (error) {
+      throw (error);
+    }
+  }
+
+  Future<Order> fetchOrder(String id) async {
+    try {
+      final response = await this.get('/api/orders/$id', useAuthHeaders: true);
+      return Order.fromJson(response['data']);
+    } catch (error) {
+      throw (error);
+    }
+  }
+
   getQuantity(int id) {
     print(id.toString());
     CartItem cartItem = _cartItems.firstWhere((i) => i.item['data'].id == id,
@@ -129,6 +150,12 @@ class UserService extends ApiService {
   List<Address> _getSavedAddressesList(List<dynamic> i) {
     return i.map((item) {
       return Address.fromJson(item);
+    }).toList();
+  }
+
+  List<Order> _getOrdersList(List<dynamic> i) {
+    return i.map((item) {
+      return Order.fromJson(item);
     }).toList();
   }
 

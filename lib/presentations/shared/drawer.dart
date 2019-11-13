@@ -38,9 +38,9 @@ class KisaanDrawer extends StatelessWidget {
               ),
             ),
             _isLoggedIn
-                ?
-            ListTile(
-              onTap: () => _navigateToPage(RouteUtils.savedAddresses, context),
+                ? ListTile(
+                    onTap: () =>
+                        _navigateToPage(RouteUtils.savedAddresses, context),
                     leading: Icon(
                       Icons.location_on,
                       size: 24.0,
@@ -54,6 +54,7 @@ class KisaanDrawer extends StatelessWidget {
                 : Container(),
             _isLoggedIn
                 ? ListTile(
+                    onTap: () => _navigateToPage(RouteUtils.myOrders, context),
                     leading: Icon(
                       Icons.local_grocery_store,
                       size: 24.0,

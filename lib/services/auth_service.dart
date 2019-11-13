@@ -1,4 +1,4 @@
-import 'package:kissan_garden/models/responses/login_response.dart';
+import 'package:kissan_garden/models/login_response.dart';
 import 'package:kissan_garden/models/user.dart';
 import 'package:kissan_garden/services/api_service.dart';
 import 'package:kissan_garden/services/broadcaster_service.dart';

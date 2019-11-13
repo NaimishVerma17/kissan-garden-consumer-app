@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kissan_garden/models/responses/login_response.dart';
+import 'package:kissan_garden/models/login_response.dart';
 import 'package:kissan_garden/presentations/shared/kisaan_button.dart';
 import 'package:kissan_garden/services/auth_service.dart';
 import 'package:kissan_garden/services/broadcaster_service.dart';
