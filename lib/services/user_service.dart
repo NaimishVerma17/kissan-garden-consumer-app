@@ -14,8 +14,6 @@ class UserService extends ApiService {
 
   List<Address> _savedAddresses = new List();
 
-  List<Order> _orders = new List();
-
   Config _config;
 
   static final UserService _instance = UserService._();
@@ -122,6 +120,15 @@ class UserService extends ApiService {
   Future<Order> fetchOrder(String id) async {
     try {
       final response = await this.get('/api/orders/$id', useAuthHeaders: true);
+      return Order.fromJson(response['data']);
+    } catch (error) {
+      throw (error);
+    }
+  }
+
+  Future<Order> createOrder(Map<String,dynamic> orderDetails) async {
+    try {
+      final response = await this.post('/api/orders', body: orderDetails, useAuthHeaders: true);
       return Order.fromJson(response['data']);
     } catch (error) {
       throw (error);
