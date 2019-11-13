@@ -25,7 +25,7 @@ class _MyOrdersPage extends State<MyOrdersPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'My orders',
+          'My Orders',
           style: Styles.pageTitleText(),
         ),
         elevation: 3.0,
@@ -35,10 +35,22 @@ class _MyOrdersPage extends State<MyOrdersPage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: _isLoading
-            ? CircularProgressIndicator()
-            : ListView.builder(
-                itemCount: 4,
-                itemBuilder: (context, index) => OrderCard(),
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Container(
+                child: _orders.length == 0
+                    ? Center(
+                        child: Text(
+                          'It seems like you haven\'t made any orders yet.',
+                          style: Styles.labelText(),
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: _orders.length,
+                        itemBuilder: (context, index) =>
+                            OrderCard(_orders[index], _orderClicked),
+                      ),
               ),
       ),
     );
@@ -54,6 +66,12 @@ class _MyOrdersPage extends State<MyOrdersPage> {
     } catch (error) {
       Styles.showToast(error);
       _isLoading = false;
+    }
+  }
+
+  _orderClicked(String id) {
+    if (id == null) {
+      return;
     }
   }
 }

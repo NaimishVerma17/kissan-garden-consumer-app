@@ -114,11 +114,12 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
                     ),
                     Expanded(
                       child: ListView.builder(
-                          itemCount: _categories.length,
-                          itemBuilder: (context, index) {
-                            return CategoryCard(
-                                _categories[index], _navigateToCategory);
-                          }),
+                        itemCount: _categories.length,
+                        itemBuilder: (context, index) {
+                          return CategoryCard(
+                              _categories[index], _navigateToCategory);
+                        },
+                      ),
                     )
                   ],
                 ),
