@@ -16,6 +16,8 @@ class UserService extends ApiService {
 
   Config _config;
 
+  double _totalAmount = 0.0;
+
   static final UserService _instance = UserService._();
 
   factory UserService.getInstance() => _instance;
@@ -25,6 +27,7 @@ class UserService extends ApiService {
   bootstrapApp() async {
     final response = await this.get('/api/me', useAuthHeaders: true);
     _cartItems = _getCartItemsList(response['data']['cart']['data']);
+    _updateTotalAmount();
     _savedAddresses =
         _getSavedAddressesList(response['data']['savedAddress']['data']);
     await fetchConfiguration();
@@ -35,14 +38,18 @@ class UserService extends ApiService {
     try {
       final response = await this.get('/api/cart', useAuthHeaders: true);
       _cartItems = _getCartItemsList(response['data']);
-    } catch (error) {}
+    } catch (error) {
+      throw (error);
+    }
   }
 
   Future<void> fetchConfiguration() async {
     try {
       final response = await this.get('/api/config', useAuthHeaders: true);
       _config = Config.fromJson(response);
-    } catch (error) {}
+    } catch (error) {
+      throw (error);
+    }
   }
 
   Future<void> addItem(CategoryItem item) async {
@@ -57,12 +64,18 @@ class UserService extends ApiService {
       try {
         final response = await _updateCart(item.id, quantity);
         _cartItems = _getCartItemsList(response['data']);
-      } catch (error) {}
+        _updateTotalAmount();
+      } catch (error) {
+        throw (error);
+      }
     } else {
       try {
         final response = await _updateCart(item.id, 1);
         _cartItems = _getCartItemsList(response['data']);
-      } catch (error) {}
+        _updateTotalAmount();
+      } catch (error) {
+        throw (error);
+      }
     }
   }
 
@@ -78,7 +91,10 @@ class UserService extends ApiService {
       try {
         final response = await _updateCart(item.id, quantity);
         _cartItems = _getCartItemsList(response['data']);
-      } catch (error) {}
+        _updateTotalAmount();
+      } catch (error) {
+        throw (error);
+      }
     }
   }
 
@@ -172,6 +188,16 @@ class UserService extends ApiService {
     }).toList();
   }
 
+  _updateTotalAmount() {
+    double _amt = 0.0;
+    _cartItems.forEach((CartItem i) {
+      _amt = _amt + (int.parse(i.quantity) * i.item['data'].price);
+    });
+    _totalAmount = _amt;
+    _broadcasterService.emit(
+        eventType: BroadcasterEventType.cartChanged, data: _totalAmount);
+  }
+
   _updateCart(int id, int quantity) async {
     print(quantity);
     final response = await this.post('/api/cart',
@@ -186,4 +212,6 @@ class UserService extends ApiService {
   List<Address> get savedAddresses => _savedAddresses;
 
   Config get config => _config;
+
+  double get totalAmount => _totalAmount;
 }

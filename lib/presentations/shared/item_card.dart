@@ -107,7 +107,7 @@ class _ItemCard extends State<ItemCard> {
                                   icon: Icon(
                                     Icons.remove_circle_outline,
                                     color: Styles.primaryColor,
-                                    size: 20.0,
+                                    size: 26.0,
                                   ),
                                 ),
                                 Text(
@@ -119,7 +119,7 @@ class _ItemCard extends State<ItemCard> {
                                   icon: Icon(
                                     Icons.add_circle_outline,
                                     color: Styles.primaryColor,
-                                    size: 20.0,
+                                    size: 26.0,
                                   ),
                                 ),
                               ],
