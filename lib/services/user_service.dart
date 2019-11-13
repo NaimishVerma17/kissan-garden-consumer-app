@@ -100,9 +100,14 @@ class UserService extends ApiService {
       Address _address = Address.fromJson(response['data']);
       _savedAddresses.forEach((Address a) {
         if (a.id == id) {
-          a = _address;
+          a.fullAddress = _address.fullAddress;
+          a.city = _address.city;
+          a.pinCode = _address.pinCode;
         }
       });
+      _broadcasterService.emit(
+          eventType: BroadcasterEventType.addressChanged,
+          data: _savedAddresses);
     } catch (error) {
       throw (error);
     }
@@ -126,9 +131,10 @@ class UserService extends ApiService {
     }
   }
 
-  Future<Order> createOrder(Map<String,dynamic> orderDetails) async {
+  Future<Order> createOrder(Map<String, dynamic> orderDetails) async {
     try {
-      final response = await this.post('/api/orders', body: orderDetails, useAuthHeaders: true);
+      final response = await this
+          .post('/api/orders', body: orderDetails, useAuthHeaders: true);
       return Order.fromJson(response['data']);
     } catch (error) {
       throw (error);

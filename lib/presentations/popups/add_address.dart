@@ -119,7 +119,7 @@ class _AddAddressPage extends State<AddAddressPage> {
         if (_address == null) {
           await _userService.addAddress(_data);
         } else {
-          await _userService.addAddress(_data);
+          await _userService.updateAddress(_data, _address.id);
         }
         _isLoading = false;
         Navigator.of(context).pop();

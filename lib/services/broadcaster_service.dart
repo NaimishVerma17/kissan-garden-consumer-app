@@ -28,4 +28,5 @@ enum BroadcasterEventType {
   loginComplete,
   bootstrapped,
   logout,
+  addressChanged
 }

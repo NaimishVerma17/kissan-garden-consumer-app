@@ -3,6 +3,7 @@ import 'package:kissan_garden/models/address.dart';
 import 'package:kissan_garden/models/mixins/unsubscribe.dart';
 import 'package:kissan_garden/presentations/popups/add_address.dart';
 import 'package:kissan_garden/presentations/shared/saved_address_card.dart';
+import 'package:kissan_garden/services/broadcaster_service.dart';
 import 'package:kissan_garden/services/user_service.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
@@ -17,9 +18,22 @@ class _SavedAddressesPage extends State<SavedAddressesPage>
 
   UserService _userService = UserService.getInstance();
 
+  BroadcasterService _broadcasterService = BroadcasterService.getInstance();
+
   @override
   void initState() {
     _savedAddresses = _userService.savedAddresses;
+    _broadcasterService
+        .on(BroadcasterEventType.addressChanged)
+        .takeUntil(distroy$)
+        .listen((data) {
+      if (this.mounted) {
+        setState(() {
+          print('address changed');
+          _savedAddresses = data;
+        });
+      }
+    });
     super.initState();
   }
 
@@ -86,5 +100,14 @@ class _SavedAddressesPage extends State<SavedAddressesPage>
     );
   }
 
-  void _addressClicked() {}
+  @override
+  void dispose() {
+    this.onDispose();
+    super.dispose();
+  }
+
+  void _addressClicked(Address a) {
+    showDialog(
+        context: context, builder: (context) => AddAddressPage(address: a));
+  }
 }
