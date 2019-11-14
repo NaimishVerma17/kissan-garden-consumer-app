@@ -15,6 +15,7 @@ class ItemsPage extends StatefulWidget {
 class _ItemsPage extends State<ItemsPage> {
   String _id;
   String _title;
+  String _keyword;
   bool _isLoading = true;
   ProductService _productService = ProductService.getInstance();
   List<CategoryItem> _items;
@@ -31,12 +32,14 @@ class _ItemsPage extends State<ItemsPage> {
       Map<String, String> _args = ModalRoute.of(context).settings.arguments;
       _id = _args['id'];
       _title = _args['title'];
+      _keyword = _args['keyword'];
       _fetchItems();
       _isItemsLoaded = true;
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text(_title, style: Styles.pageTitleText()),
+        title: Text(_title != null ? _title : 'Items',
+            style: Styles.pageTitleText()),
         elevation: 0.0,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Styles.primaryColor),
@@ -52,19 +55,28 @@ class _ItemsPage extends State<ItemsPage> {
                     horizontal: 15.0, vertical: 18.0),
                 child: Column(
                   children: <Widget>[
-                    SearchBar(),
+                    SearchBar(
+                      search: _searchItems,
+                    ),
                     SizedBox(
                       height: 10.0,
                     ),
-                    Expanded(
-                      child: ListView.builder(
-                          itemCount: _items.length,
-                          itemBuilder: (context, index) {
-                            return ItemCard(
-                              _items[index],
-                            );
-                          }),
-                    )
+                    _items.length == 0
+                        ? Center(
+                            child: Text(
+                              'Sorry, It seems no product exist with this name!',
+                              style: Styles.labelText(),
+                            ),
+                          )
+                        : Expanded(
+                            child: ListView.builder(
+                                itemCount: _items.length,
+                                itemBuilder: (context, index) {
+                                  return ItemCard(
+                                    _items[index],
+                                  );
+                                }),
+                          )
                   ],
                 ),
               ),
@@ -74,7 +86,29 @@ class _ItemsPage extends State<ItemsPage> {
 
   _fetchItems() async {
     try {
-      _items = await _productService.fetchItems(id: _id);
+      if (_id != null) {
+        _items = await _productService.fetchItems(id: _id);
+      }
+      if (_keyword != null) {
+        _items = await _productService.fetchItems(keyword: _keyword);
+      }
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (error) {
+      Styles.showToast(error);
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  _searchItems(String keyword) async {
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      _items = await _productService.fetchItems(keyword: _keyword);
       setState(() {
         _isLoading = false;
       });

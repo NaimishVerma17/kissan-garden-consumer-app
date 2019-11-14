@@ -26,6 +26,7 @@ class SearchBar extends StatelessWidget {
         borderRadius: new BorderRadius.circular(20.0),
       ),
       child: new TextField(
+        onSubmitted: (value) => search(value),
         controller: _controller,
         textInputAction: TextInputAction.search,
         style: TextStyle(fontSize: 16.0),

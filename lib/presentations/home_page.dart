@@ -108,7 +108,9 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
                     horizontal: 15.0, vertical: 18.0),
                 child: Column(
                   children: <Widget>[
-                    SearchBar(),
+                    SearchBar(
+                      search: _searchItem,
+                    ),
                     SizedBox(
                       height: 10.0,
                     ),
@@ -155,6 +157,11 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
       _isLoggedIn = true;
       _isLoading = false;
     });
+  }
+
+  _searchItem(String keyword) {
+    Navigator.pushNamed(context, RouteUtils.items,
+        arguments: {'keyword': keyword.toString()});
   }
 
   @override

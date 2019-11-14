@@ -18,10 +18,17 @@ class ProductService extends ApiService {
     }
   }
 
-  Future<List<CategoryItem>> fetchItems({String id}) async {
+  Future<List<CategoryItem>> fetchItems({String id, String keyword}) async {
+    Map<String, String> data;
+    if (id != null) {
+      data = {'category_id': id.toString()};
+    }
+    if (keyword != null) {
+      data = {'keyword': keyword};
+    }
     try {
-      final response = await this.get('/api/items',
-          params: {'category_id': id.toString()}, useAuthHeaders: false);
+      final response =
+          await this.get('/api/items', params: data, useAuthHeaders: false);
       return _getItems(response['data']);
     } catch (error) {
       throw (error);
