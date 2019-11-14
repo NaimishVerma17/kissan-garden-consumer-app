@@ -117,7 +117,12 @@ class _VerifyOtpPage extends State<VerifyOtpPage> {
     }
   }
 
-  _resendOtp() {
-    print('Resend otp');
+  _resendOtp() async {
+    try {
+      await _authService.sendOtp({'phone_number': _phoneNo});
+      Styles.showToast('OTP sent successfully');
+    } catch (error) {
+      Styles.showToast(error);
+    }
   }
 }
