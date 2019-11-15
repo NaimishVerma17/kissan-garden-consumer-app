@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kissan_garden/models/category.dart';
 import 'package:kissan_garden/models/mixins/unsubscribe.dart';
+import 'package:kissan_garden/presentations/popups/home_carousel.dart';
 import 'package:kissan_garden/presentations/shared/category_card.dart';
 import 'package:kissan_garden/presentations/shared/drawer.dart';
 import 'package:kissan_garden/presentations/shared/search_bar.dart';
@@ -106,21 +107,31 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 15.0, vertical: 18.0),
-                child: Column(
-                  children: <Widget>[
-                    SearchBar(
-                      search: _searchItem,
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: _categories.length,
-                        itemBuilder: (context, index) {
-                          return CategoryCard(
-                              _categories[index], _navigateToCategory);
-                        },
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverList(
+                      delegate: SliverChildListDelegate(
+                        [
+                          SearchBar(
+                            search: _searchItem,
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          HomeCarousel(),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemCount: _categories.length,
+                            itemBuilder: (context, index) {
+                              return CategoryCard(
+                                  _categories[index], _navigateToCategory);
+                            },
+                          ),
+                        ],
                       ),
                     )
                   ],

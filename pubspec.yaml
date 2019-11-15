@@ -25,6 +25,7 @@ dependencies:
   json_annotation: ^3.0.0
   fluttertoast: ^3.1.3
   rxdart: ^0.22.4
+  carousel_slider: ^1.3.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -53,6 +54,9 @@ flutter:
     - assets/images/shopping-basket.png
     - assets/images/user.png
     - assets/images/vegi.jpeg
+    - assets/images/fresh_food.jpeg
+    - assets/images/on_time_delivery.jpeg
+    - assets/images/quality_food.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
