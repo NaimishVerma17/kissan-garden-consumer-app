@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kissan_garden/models/address.dart';
+import 'package:kissan_garden/models/order.dart';
 import 'package:kissan_garden/services/user_service.dart';
 import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
@@ -202,7 +203,7 @@ class _OrderPage extends State<OrderPage> {
     );
   }
 
-  Widget _getOrderButton(){
+  Widget _getOrderButton() {
     final double _width = MediaQuery.of(context).size.width;
     return Container(
       width: _width,
@@ -234,15 +235,32 @@ class _OrderPage extends State<OrderPage> {
     Navigator.of(context).pushNamed(RouteUtils.savedAddresses);
   }
 
-  void _placeOrder() {
-    if(_addressId == null) {
+  void _placeOrder() async {
+    if (_addressId == null) {
       Styles.showToast('Please select a delivery address');
       return;
     }
 
-    if(_deliveryTimeSlot == null) {
+    if (_deliveryTimeSlot == null) {
       Styles.showToast('Please select a time slot');
       return;
+    }
+    Address address = _savedAddresses.firstWhere((s) => s.id == _addressId,
+        orElse: () => null);
+    if (address == null) {
+      return;
+    }
+    String _fullAddress = address.fullAddress +
+        ', City: ' +
+        address.city +
+        ', PinCode: ' +
+        address.pinCode;
+    try {
+      Order order = await this._userService.createOrder(
+          {'full_address': _fullAddress, 'delivery_time': _deliveryTimeSlot});
+      Navigator.pushNamed(context, RouteUtils.singleOrder, arguments: {'order': order, 'is_new': false});
+    } catch (error) {
+      Styles.showToast(error);
     }
   }
 }

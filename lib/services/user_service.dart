@@ -168,6 +168,10 @@ class UserService extends ApiService {
     }
   }
 
+  resetCart() {
+    _cartItems = List.from([]);
+  }
+
   // private methods
 
   List<CartItem> _getCartItemsList(List<dynamic> i) {

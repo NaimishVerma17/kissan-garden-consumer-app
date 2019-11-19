@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kissan_garden/models/order.dart';
 import 'package:kissan_garden/presentations/shared/order_card.dart';
 import 'package:kissan_garden/services/user_service.dart';
+import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
 class MyOrdersPage extends StatefulWidget {
@@ -69,9 +70,11 @@ class _MyOrdersPage extends State<MyOrdersPage> {
     }
   }
 
-  _orderClicked(String id) {
-    if (id == null) {
+  _orderClicked(Order order) {
+    if (order == null) {
       return;
     }
+    Navigator.pushNamed(context, RouteUtils.singleOrder,
+        arguments: {'order': order, 'is_new': false});
   }
 }

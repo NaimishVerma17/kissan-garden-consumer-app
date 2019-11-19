@@ -12,7 +12,7 @@ class OrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        this.onClick(order.orderId);
+        this.onClick(order);
       },
       child: Card(
         elevation: 5.0,
