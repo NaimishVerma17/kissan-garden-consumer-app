@@ -162,8 +162,7 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
   }
 
   _loadUserData() async {
-    await _userService.fetchCart();
-    await _userService.fetchConfiguration();
+    await _userService.bootstrapApp();
     setState(() {
       _isLoggedIn = true;
       _isLoading = false;

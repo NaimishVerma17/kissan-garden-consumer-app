@@ -24,7 +24,7 @@ class UserService extends ApiService {
 
   BroadcasterService _broadcasterService = BroadcasterService.getInstance();
 
-  bootstrapApp() async {
+  Future<void> bootstrapApp() async {
     final response = await this.get('/api/me', useAuthHeaders: true);
     _cartItems = _getCartItemsList(response['data']['cart']['data']);
     _updateTotalAmount();
