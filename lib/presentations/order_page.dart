@@ -258,7 +258,7 @@ class _OrderPage extends State<OrderPage> {
     try {
       Order order = await this._userService.createOrder(
           {'full_address': _fullAddress, 'delivery_time': _deliveryTimeSlot});
-      Navigator.pushNamed(context, RouteUtils.singleOrder, arguments: {'order': order, 'is_new': false});
+      Navigator.pushReplacementNamed(context, RouteUtils.singleOrder, arguments: {'order': order, 'is_new': false});
     } catch (error) {
       Styles.showToast(error);
     }

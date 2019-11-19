@@ -34,9 +34,9 @@ class _ItemCard extends State<ItemCard> {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Container(
               height: 100.0,
@@ -50,7 +50,7 @@ class _ItemCard extends State<ItemCard> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 30.0),
+              margin: EdgeInsets.only(left: 25.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
