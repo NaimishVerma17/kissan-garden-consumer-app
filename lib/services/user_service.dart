@@ -34,15 +34,6 @@ class UserService extends ApiService {
     _broadcasterService.emit(eventType: BroadcasterEventType.bootstrapped);
   }
 
-  Future<void> fetchCart() async {
-    try {
-      final response = await this.get('/api/cart', useAuthHeaders: true);
-      _cartItems = _getCartItemsList(response['data']);
-    } catch (error) {
-      throw (error);
-    }
-  }
-
   Future<void> fetchConfiguration() async {
     try {
       final response = await this.get('/api/config', useAuthHeaders: true);
@@ -151,6 +142,7 @@ class UserService extends ApiService {
     try {
       final response = await this
           .post('/api/orders', body: orderDetails, useAuthHeaders: true);
+      resetCart();
       return Order.fromJson(response['data']);
     } catch (error) {
       throw (error);
@@ -169,7 +161,7 @@ class UserService extends ApiService {
   }
 
   resetCart() {
-    _cartItems = List.from([]);
+    _cartItems = [];
   }
 
   // private methods

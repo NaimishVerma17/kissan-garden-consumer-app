@@ -76,6 +76,9 @@ class SingleOrderPage extends StatelessWidget {
                     SizedBox(
                       height: 10.0,
                     ),
+                    Divider(
+                      thickness: 0.5,
+                    ),
                     Wrap(
                       children: <Widget>[
                         Text(
@@ -142,7 +145,7 @@ class SingleOrderPage extends StatelessWidget {
     return new ListView.builder(
       shrinkWrap: true,
       physics: ClampingScrollPhysics(),
-      itemCount: 1,
+      itemCount: _order.items.length,
       itemBuilder: (context, index) => Container(
         child: Row(
           children: <Widget>[
@@ -197,9 +200,6 @@ class SingleOrderPage extends StatelessWidget {
                 SizedBox(
                   height: 8.0,
                 ),
-                Divider(
-                  thickness: 0.5,
-                )
               ],
             )
           ],

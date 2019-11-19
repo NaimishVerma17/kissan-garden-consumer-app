@@ -21,6 +21,8 @@ class _OrderPage extends State<OrderPage> {
   List<Address> _savedAddresses;
   List<String> _timeSlots;
 
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     _savedAddresses = _userService.savedAddresses;
@@ -256,10 +258,21 @@ class _OrderPage extends State<OrderPage> {
         ', PinCode: ' +
         address.pinCode;
     try {
+      setState(() {
+        _isLoading = true;
+      });
       Order order = await this._userService.createOrder(
           {'full_address': _fullAddress, 'delivery_time': _deliveryTimeSlot});
-      Navigator.pushReplacementNamed(context, RouteUtils.singleOrder, arguments: {'order': order, 'is_new': false});
+      setState(() {
+        _isLoading = false;
+      });
+      Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, RouteUtils.singleOrder,
+          arguments: {'order': order, 'is_new': true});
     } catch (error) {
+      setState(() {
+        _isLoading = false;
+      });
       Styles.showToast(error);
     }
   }
