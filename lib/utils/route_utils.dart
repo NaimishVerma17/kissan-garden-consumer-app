@@ -13,6 +13,7 @@ abstract class RouteUtils {
   static const order = '/order';
   static const myOrders = '/my-orders';
   static const singleOrder = '/single-order';
+  static const myAccount = '/my-account';
 
   static final Map<String, WidgetBuilder> routes = {
     splash: (context) => SplashPage(),
@@ -25,6 +26,7 @@ abstract class RouteUtils {
     addAddress: (context) => AddAddressPage(),
     order: (context) => OrderPage(),
     myOrders: (context) => MyOrdersPage(),
-    singleOrder: (context) => SingleOrderPage()
+    singleOrder: (context) => SingleOrderPage(),
+    myAccount: (context) => MyAccountPage(),
   };
 }

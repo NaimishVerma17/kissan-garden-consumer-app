@@ -9,3 +9,4 @@ export 'package:kissan_garden/presentations/popups/add_address.dart';
 export 'package:kissan_garden/presentations/order_page.dart';
 export 'package:kissan_garden/presentations/my_orders_page.dart';
 export 'package:kissan_garden/presentations/single_order_page.dart';
+export 'package:kissan_garden/presentations/my_account_page.dart';
