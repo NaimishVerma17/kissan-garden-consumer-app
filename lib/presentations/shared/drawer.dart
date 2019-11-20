@@ -68,6 +68,7 @@ class KisaanDrawer extends StatelessWidget {
                 : Container(),
             _isLoggedIn
                 ? ListTile(
+                    onTap: () => _navigateToPage(RouteUtils.myAccount, context),
                     leading: Icon(
                       Icons.account_circle,
                       size: 24.0,

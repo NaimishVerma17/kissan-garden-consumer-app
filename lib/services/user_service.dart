@@ -16,6 +16,8 @@ class UserService extends ApiService {
 
   Config _config;
 
+  User _user;
+
   double _totalAmount = 0.0;
 
   static final UserService _instance = UserService._();
@@ -27,11 +29,22 @@ class UserService extends ApiService {
   Future<void> bootstrapApp() async {
     final response = await this.get('/api/me', useAuthHeaders: true);
     _cartItems = _getCartItemsList(response['data']['cart']['data']);
+    _user = User.fromJson(response['data']);
     _updateTotalAmount();
     _savedAddresses =
         _getSavedAddressesList(response['data']['savedAddress']['data']);
     await fetchConfiguration();
     _broadcasterService.emit(eventType: BroadcasterEventType.bootstrapped);
+  }
+
+  Future<void> updateUser(String fullName) async {
+    try {
+      final response = await this
+          .put('/api/me', body: {'full_name': fullName}, useAuthHeaders: true);
+      _user = User.fromJson(response['data']);
+    } catch (error) {
+      throw (error);
+    }
   }
 
   Future<void> fetchConfiguration() async {
@@ -210,4 +223,6 @@ class UserService extends ApiService {
   Config get config => _config;
 
   double get totalAmount => _totalAmount;
+
+  User get user => _user;
 }
