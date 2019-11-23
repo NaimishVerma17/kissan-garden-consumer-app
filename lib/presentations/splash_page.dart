@@ -25,6 +25,13 @@ class SplashPage extends StatelessWidget with UnsubscribeMixin {
           arguments: _isLoggedIn);
       this._disposeBroadcaster();
     });
+
+    _broadcasterService
+        .on(BroadcasterEventType.logout)
+        .takeUntil(distroy$)
+        .listen((data) {
+      _loadHomeScreen(context);
+    });
     _loadHomeScreen(context);
     return Scaffold(
       body: Container(

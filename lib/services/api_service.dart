@@ -4,13 +4,17 @@ import 'package:meta/meta.dart';
 import 'dart:convert';
 
 import './preferences_service.dart';
+import 'broadcaster_service.dart';
 
 abstract class ApiService {
+  final BroadcasterService _broadcasterService =
+      BroadcasterService.getInstance();
+
   Future<Map<String, dynamic>> get(String url,
       {Map<String, String> params, bool useAuthHeaders = true}) async {
     final response = await http.get(_getUrlWithParams(url, params: params),
         headers: await _getHeaders(useAuthHeaders: useAuthHeaders));
-    return _getResponse(response);
+    return await _getResponse(response);
   }
 
   Future<Map<String, dynamic>> post(String url,
@@ -18,7 +22,7 @@ abstract class ApiService {
     final response = await http.post(this._getUrl(url),
         headers: (await this._getHeaders(useAuthHeaders: useAuthHeaders)),
         body: json.encode(body));
-    return _getResponse(response);
+    return await _getResponse(response);
   }
 
   Future<Map<String, dynamic>> put(String url,
@@ -26,7 +30,7 @@ abstract class ApiService {
     final response = await http.put(this._getUrl(url),
         headers: (await this._getHeaders(useAuthHeaders: useAuthHeaders)),
         body: json.encode(body));
-    return _getResponse(response);
+    return await _getResponse(response);
   }
 
   String _getUrl(String url) {
@@ -37,8 +41,7 @@ abstract class ApiService {
     final map = Map<String, String>.from({"Content-Type": "application/json"});
 
     if (useAuthHeaders) {
-      map["Authorization"] =
-          "${await PreferencesService().getAuthToken()}";
+      map["Authorization"] = "${await PreferencesService().getAuthToken()}";
     }
 
     return map;
@@ -57,11 +60,17 @@ abstract class ApiService {
     return apiUrl;
   }
 
-  Map<String, dynamic> _getResponse(http.Response response) {
+  Future<Map<String, dynamic>> _getResponse(http.Response response) async {
     if (response.body.isEmpty) {
       return {'message': 'Success'};
     } else {
       final Map<String, dynamic> body = json.decode(response.body);
+
+      if (response.statusCode == 401) {
+        await PreferencesService().removeAuthToken();
+        this._broadcasterService.emit(eventType: BroadcasterEventType.logout);
+        throw ('You are logged out. Please login again.');
+      }
 
       if (response.statusCode < 200 || response.statusCode >= 300) {
         if (body['errors'] != null) {
