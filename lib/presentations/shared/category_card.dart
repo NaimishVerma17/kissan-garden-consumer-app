@@ -14,30 +14,29 @@ class CategoryCard extends StatelessWidget {
     return GestureDetector(
       onTap: () => onClick(category.id, category.title),
       child: Card(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child:  Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
           child: Column(
-            children: <Widget>[
-              Container(
-                width: _width - 65.0,
-                height: 200.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(3.0),
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(category.imageUrl),
+              children: <Widget>[
+                Container(
+                  width: _width - 30.0,
+                  height: 220.0,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(category.imageUrl),
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 5.0,
-              ),
-              Text(
-                category.title,
-                style: Styles.pageTitleText(),
-              )
-            ],
-          ),
+                SizedBox(
+                  height: 5.0,
+                ),
+                Text(
+                  category.title,
+                  style: Styles.pageTitleText(),
+                )
+              ],
+            ),
         ),
       ),
     );
