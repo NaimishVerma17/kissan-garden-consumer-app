@@ -20,7 +20,8 @@ class _MyAccountPage extends State<MyAccountPage> {
   @override
   void initState() {
     _user = _userService.user;
-    _editingController.value = TextEditingValue(text: _user.fullName);
+    if (_user.fullName != null)
+      _editingController.value = TextEditingValue(text: _user.fullName);
     super.initState();
   }
 
@@ -83,7 +84,9 @@ class _MyAccountPage extends State<MyAccountPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20.0,),
+                  SizedBox(
+                    height: 20.0,
+                  ),
                   Wrap(
                     children: <Widget>[
                       Text('Phone No:', style: Styles.labelText()),
