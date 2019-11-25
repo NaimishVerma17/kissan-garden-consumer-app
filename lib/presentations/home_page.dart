@@ -157,8 +157,11 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
   }
 
   _navigateToCategory(int id, String title) {
-    Navigator.pushNamed(context, RouteUtils.items,
-        arguments: {'title': title, 'id': id.toString()});
+    Navigator.pushNamed(context, RouteUtils.items, arguments: {
+      'title': title,
+      'id': id.toString(),
+      'is_logged_in': _isLoggedIn.toString()
+    });
   }
 
   _loadUserData() async {
@@ -170,8 +173,10 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
   }
 
   _searchItem(String keyword) {
-    Navigator.pushNamed(context, RouteUtils.items,
-        arguments: {'keyword': keyword.toString()});
+    Navigator.pushNamed(context, RouteUtils.items, arguments: {
+      'keyword': keyword.toString(),
+      'is_logged_in': _isLoggedIn.toString()
+    });
   }
 
   @override

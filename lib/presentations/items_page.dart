@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:kissan_garden/models/category_item.dart';
+import 'package:kissan_garden/models/mixins/unsubscribe.dart';
 import 'package:kissan_garden/presentations/shared/item_card.dart';
 import 'package:kissan_garden/presentations/shared/search_bar.dart';
+import 'package:kissan_garden/services/broadcaster_service.dart';
 import 'package:kissan_garden/services/product_service.dart';
+import 'package:kissan_garden/services/user_service.dart';
+import 'package:kissan_garden/utils/route_utils.dart';
 import 'package:kissan_garden/utils/styles.dart';
 
 class ItemsPage extends StatefulWidget {
@@ -12,17 +16,29 @@ class ItemsPage extends StatefulWidget {
   }
 }
 
-class _ItemsPage extends State<ItemsPage> {
+class _ItemsPage extends State<ItemsPage> with UnsubscribeMixin {
+  ProductService _productService = ProductService.getInstance();
+  BroadcasterService _broadcasterService = BroadcasterService.getInstance();
+  UserService _userService = UserService.getInstance();
   String _id;
   String _title;
   String _keyword;
   bool _isLoading = true;
-  ProductService _productService = ProductService.getInstance();
   List<CategoryItem> _items;
   bool _isItemsLoaded = false;
+  bool _isLoggedIn = false;
 
   @override
   void initState() {
+    _broadcasterService
+        .on(BroadcasterEventType.loginComplete)
+        .takeUntil(distroy$)
+        .listen((data) {
+      setState(() {
+        _isLoading = true;
+        _loadUserData();
+      });
+    });
     super.initState();
   }
 
@@ -33,6 +49,7 @@ class _ItemsPage extends State<ItemsPage> {
       _id = _args['id'];
       _title = _args['title'];
       _keyword = _args['keyword'];
+      _isLoggedIn = _args['is_logged_in'] == 'true' ? true : false;
       _fetchItems();
       _isItemsLoaded = true;
     }
@@ -43,6 +60,31 @@ class _ItemsPage extends State<ItemsPage> {
         elevation: 0.0,
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Styles.primaryColor),
+        actions: <Widget>[
+          !_isLoggedIn
+              ? IconButton(
+                  icon: Icon(
+                    Icons.person,
+                    size: 32.0,
+                    color: Styles.primaryColor,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteUtils.login);
+                  },
+                )
+              : IconButton(
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    size: 32.0,
+                    color: Styles.primaryColor,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteUtils.cart);
+                  },
+                )
+        ],
       ),
       body: Container(
         decoration: BoxDecoration(color: Styles.homeBackgroundColor),
@@ -121,5 +163,19 @@ class _ItemsPage extends State<ItemsPage> {
         _isLoading = false;
       });
     }
+  }
+
+  _loadUserData() async {
+    await _userService.bootstrapApp();
+    setState(() {
+      _isLoggedIn = true;
+      _isLoading = false;
+    });
+  }
+
+  @override
+  void dispose() {
+    onDispose();
+    super.dispose();
   }
 }
