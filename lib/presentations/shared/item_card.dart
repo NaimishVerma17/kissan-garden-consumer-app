@@ -84,49 +84,46 @@ class _ItemCard extends State<ItemCard> {
                 ],
               ),
             ),
-            _isLoggedIn
-                ? Container(
-                    child: itemCount == 0
-                        ? Container(
-                            width: 58.0,
-                            child: FlatButton(
+            Container(
+              child: itemCount == 0
+                  ? Container(
+                      width: 58.0,
+                      child: FlatButton(
+                        color: Styles.primaryColor,
+                        onPressed: _onAddPressed,
+                        child: Text(
+                          'Add',
+                          style: TextStyle(color: Colors.white, fontSize: 12.0),
+                        ),
+                      ),
+                    )
+                  : Container(
+                      child: Row(
+                        children: <Widget>[
+                          IconButton(
+                            onPressed: _onRemovePressed,
+                            icon: Icon(
+                              Icons.remove_circle_outline,
                               color: Styles.primaryColor,
-                              onPressed: _onAddPressed,
-                              child: Text(
-                                'Add',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 12.0),
-                              ),
-                            ),
-                          )
-                        : Container(
-                            child: Row(
-                              children: <Widget>[
-                                IconButton(
-                                  onPressed: _onRemovePressed,
-                                  icon: Icon(
-                                    Icons.remove_circle_outline,
-                                    color: Styles.primaryColor,
-                                    size: 26.0,
-                                  ),
-                                ),
-                                Text(
-                                  itemCount.toString(),
-                                  style: TextStyle(fontSize: 15.0),
-                                ),
-                                IconButton(
-                                  onPressed: _onAddPressed,
-                                  icon: Icon(
-                                    Icons.add_circle_outline,
-                                    color: Styles.primaryColor,
-                                    size: 26.0,
-                                  ),
-                                ),
-                              ],
+                              size: 26.0,
                             ),
                           ),
-                  )
-                : Container(),
+                          Text(
+                            itemCount.toString(),
+                            style: TextStyle(fontSize: 15.0),
+                          ),
+                          IconButton(
+                            onPressed: _onAddPressed,
+                            icon: Icon(
+                              Icons.add_circle_outline,
+                              color: Styles.primaryColor,
+                              size: 26.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+            )
           ],
         ),
       ),
@@ -134,6 +131,10 @@ class _ItemCard extends State<ItemCard> {
   }
 
   _onAddPressed() async {
+    if (!_isLoggedIn) {
+      Styles.showToast('Please login to add items to cart');
+      return;
+    }
     await _userService.addItem(item);
 
     setState(() {
@@ -153,7 +154,7 @@ class _ItemCard extends State<ItemCard> {
     final res = await _authService.isLoggedIn();
     setState(() {
       _isLoggedIn = res;
-      if(_isLoggedIn) {
+      if (_isLoggedIn) {
         itemCount = _userService.getQuantity(item.id);
       }
     });
