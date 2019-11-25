@@ -50,7 +50,7 @@ class _ItemCard extends State<ItemCard> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 25.0),
+              margin: EdgeInsets.only(left: 26.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -100,24 +100,34 @@ class _ItemCard extends State<ItemCard> {
                   : Container(
                       child: Row(
                         children: <Widget>[
-                          IconButton(
-                            onPressed: _onRemovePressed,
-                            icon: Icon(
-                              Icons.remove_circle_outline,
+                          GestureDetector(
+                            onTap: _onAddPressed,
+                            child: Container(
+                              padding: EdgeInsets.all(6.0),
+                              width: 26.0,
+                              height: 26.0,
                               color: Styles.primaryColor,
-                              size: 26.0,
+                              child: Image.asset('assets/images/add_icon.png'),
                             ),
+                          ),
+                          SizedBox(
+                            width: 8.0,
                           ),
                           Text(
                             itemCount.toString(),
                             style: TextStyle(fontSize: 15.0),
                           ),
-                          IconButton(
-                            onPressed: _onAddPressed,
-                            icon: Icon(
-                              Icons.add_circle_outline,
+                          SizedBox(
+                            width: 8.0,
+                          ),
+                          GestureDetector(
+                            onTap: _onAddPressed,
+                            child: Container(
+                              padding: EdgeInsets.all(6.0),
+                              width: 26.0,
+                              height: 26.0,
                               color: Styles.primaryColor,
-                              size: 26.0,
+                              child: Image.asset('assets/images/minus.png'),
                             ),
                           ),
                         ],
