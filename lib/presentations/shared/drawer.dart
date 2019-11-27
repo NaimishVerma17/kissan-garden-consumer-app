@@ -91,17 +91,17 @@ class KisaanDrawer extends StatelessWidget {
                 style: Styles.drawerItemsText(),
               ),
             ),
-            ListTile(
-              leading: Icon(
-                Icons.local_phone,
-                size: 24.0,
-                color: Colors.white,
-              ),
-              title: Text(
-                'Contact us',
-                style: Styles.drawerItemsText(),
-              ),
-            ),
+//            ListTile(
+//              leading: Icon(
+//                Icons.local_phone,
+//                size: 24.0,
+//                color: Colors.white,
+//              ),
+//              title: Text(
+//                'Contact us',
+//                style: Styles.drawerItemsText(),
+//              ),
+//            ),
             _isLoggedIn
                 ? ListTile(
                     onTap: () => _logout(context),

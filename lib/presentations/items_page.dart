@@ -55,7 +55,7 @@ class _ItemsPage extends State<ItemsPage> with UnsubscribeMixin {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text(_title != null ? _title : 'Items',
+        title: Text(_title != null ? _title : 'Products',
             style: Styles.pageTitleText()),
         elevation: 0.0,
         backgroundColor: Colors.white,
@@ -105,10 +105,15 @@ class _ItemsPage extends State<ItemsPage> with UnsubscribeMixin {
                     )
                   : Container(
                       child: _items.length == 0
-                          ? Center(
-                              child: Text(
-                                'Sorry, It seems no product exist with this name!',
-                                style: Styles.labelText(),
+                          ? Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(
+                                  child: Text(
+                                    'Sorry, no product exist with this name!',
+                                    style: Styles.labelText(),
+                                  ),
+                                ),
                               ),
                             )
                           : Expanded(

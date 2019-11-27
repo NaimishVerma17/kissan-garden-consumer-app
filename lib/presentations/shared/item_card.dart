@@ -101,13 +101,13 @@ class _ItemCard extends State<ItemCard> {
                       child: Row(
                         children: <Widget>[
                           GestureDetector(
-                            onTap: _onAddPressed,
+                            onTap: _onRemovePressed,
                             child: Container(
                               padding: EdgeInsets.all(6.0),
                               width: 26.0,
                               height: 26.0,
                               color: Styles.primaryColor,
-                              child: Image.asset('assets/images/add_icon.png'),
+                              child: Image.asset('assets/images/minus.png'),
                             ),
                           ),
                           SizedBox(
@@ -127,7 +127,7 @@ class _ItemCard extends State<ItemCard> {
                               width: 26.0,
                               height: 26.0,
                               color: Styles.primaryColor,
-                              child: Image.asset('assets/images/minus.png'),
+                              child: Image.asset('assets/images/add_icon.png'),
                             ),
                           ),
                         ],
