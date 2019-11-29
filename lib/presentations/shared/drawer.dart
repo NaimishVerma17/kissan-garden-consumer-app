@@ -27,6 +27,9 @@ class KisaanDrawer extends StatelessWidget {
               child: Image.asset("assets/images/shopping-basket.png"),
             ),
             ListTile(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
               leading: Icon(
                 Icons.home,
                 size: 24.0,
@@ -81,6 +84,7 @@ class KisaanDrawer extends StatelessWidget {
                   )
                 : Container(),
             ListTile(
+              onTap: () => _navigateToPage(RouteUtils.aboutUs, context),
               leading: Icon(
                 Icons.info_outline,
                 size: 24.0,
