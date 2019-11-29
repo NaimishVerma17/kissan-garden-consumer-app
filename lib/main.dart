@@ -10,7 +10,7 @@ class KisaanGardenApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Styles.primaryColor,
         accentColor: Styles.subHeadingColor,
-        fontFamily: 'Raleway'
+        fontFamily: 'Poppins'
       ),
       initialRoute: RouteUtils.splash,
       routes: RouteUtils.routes,
