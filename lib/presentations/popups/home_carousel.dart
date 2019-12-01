@@ -25,9 +25,9 @@ class HomeCarousel extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               margin: EdgeInsets.symmetric(horizontal: 5.0),
               decoration: BoxDecoration(
-                color: Styles.primaryColor,
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(3.0),
-                image: DecorationImage(image: AssetImage(i),fit: BoxFit.cover),
+                image: DecorationImage(image: AssetImage(i),fit: BoxFit.contain),
               ),
             );
           },

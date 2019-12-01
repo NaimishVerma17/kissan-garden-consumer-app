@@ -53,12 +53,11 @@ flutter:
     - assets/images/drawer-bg.png
     - assets/images/shopping-basket.png
     - assets/images/user.png
-    - assets/images/vegi.jpeg
-    - assets/images/fresh_food.jpeg
-    - assets/images/on_time_delivery.jpeg
-    - assets/images/quality_food.jpeg
     - assets/images/add_icon.png
     - assets/images/minus.png
+    - assets/images/free.png
+    - assets/images/organic.jpg
+    - assets/images/on-time-delivery.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
