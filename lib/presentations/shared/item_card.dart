@@ -33,31 +33,33 @@ class _ItemCard extends State<ItemCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            Container(
-              height: 100.0,
-              width: 100.0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(3.0),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(item.imageUrl),
-                ),
-              ),
+      child: Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          height: 160.0,
+          width: 160.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(0),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage(item.imageUrl),
             ),
+          ),
+        ),
+        SizedBox(
+          width: 20.0,
+        ),
+        Container(
+          child: Column(children: [
             Container(
-              margin: EdgeInsets.only(left: 26.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     item.title,
                     style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: 18.0,
                         fontWeight: FontWeight.w600,
                         color: Styles.primaryColor),
                   ),
@@ -68,73 +70,85 @@ class _ItemCard extends State<ItemCard> {
                     item.minQuantity,
                     style: TextStyle(
                         color: Styles.subHeadingColor,
-                        fontSize: 14.0,
+                        fontSize: 15.0,
                         fontWeight: FontWeight.w500),
                   ),
                   SizedBox(
-                    height: 15.0,
+                    height: 5.0,
                   ),
                   Text(
                     'Rs. ${item.price}',
                     style: TextStyle(
                         color: Styles.subHeadingColor,
-                        fontSize: 14.0,
+                        fontSize: 15.0,
                         fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
             ),
+            SizedBox(
+              height: 20.0,
+            ),
             Container(
+              margin: EdgeInsets.only(left: 22.0),
               child: itemCount == 0
                   ? Container(
-                      width: 58.0,
-                      child: FlatButton(
-                        color: Styles.primaryColor,
-                        onPressed: _onAddPressed,
-                        child: Text(
-                          'Add',
-                          style: TextStyle(color: Colors.white, fontSize: 12.0),
-                        ),
-                      ),
-                    )
+                width: 92.0,
+                child: FlatButton(
+                  color: Styles.primaryColor,
+                  onPressed: _onAddPressed,
+                  child: Text(
+                    'ADD',
+                    style: TextStyle(
+                        color: Colors.white, fontSize: 14.0),
+                  ),
+                ),
+              )
                   : Container(
-                      child: Row(
-                        children: <Widget>[
-                          GestureDetector(
-                            onTap: _onRemovePressed,
-                            child: Container(
-                              padding: EdgeInsets.all(6.0),
-                              width: 26.0,
-                              height: 26.0,
-                              color: Styles.primaryColor,
-                              child: Image.asset('assets/images/minus.png'),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 8.0,
-                          ),
-                          Text(
-                            itemCount.toString(),
-                            style: TextStyle(fontSize: 15.0),
-                          ),
-                          SizedBox(
-                            width: 8.0,
-                          ),
-                          GestureDetector(
-                            onTap: _onAddPressed,
-                            child: Container(
-                              padding: EdgeInsets.all(6.0),
-                              width: 26.0,
-                              height: 26.0,
-                              color: Styles.primaryColor,
-                              child: Image.asset('assets/images/add_icon.png'),
-                            ),
-                          ),
-                        ],
+                child: Row(
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: _onRemovePressed,
+                      child: Container(
+                        padding: EdgeInsets.all(10.0),
+                        width: 32.0,
+                        height: 32.0,
+                        color: Styles.primaryColor,
+                        child: Image.asset('assets/images/minus.png'),
                       ),
                     ),
+                    SizedBox(
+                      width: 8.0,
+                    ),
+                    Text(
+                      itemCount.toString(),
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                    SizedBox(
+                      width: 8.0,
+                    ),
+                    GestureDetector(
+                      onTap: _onAddPressed,
+                      child: Container(
+                        padding: EdgeInsets.all(10.0),
+                        width: 32.0,
+                        height: 32.0,
+                        color: Styles.primaryColor,
+                        child:
+                        Image.asset('assets/images/add_icon.png'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             )
-          ],
+          ]),
+        )
+      ],
+    ),
+      shape: RoundedRectangleBorder(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(0),
         ),
       ),
     );

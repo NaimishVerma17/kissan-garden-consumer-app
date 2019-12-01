@@ -97,7 +97,7 @@ class _ItemsPage extends State<ItemsPage> with UnsubscribeMixin {
                 search: _searchItems,
               ),
               SizedBox(
-                height: 10.0,
+                height: 40.0,
               ),
               _isLoading
                   ? Center(

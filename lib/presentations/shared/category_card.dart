@@ -10,13 +10,16 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
+    final _width = MediaQuery
+        .of(context)
+        .size
+        .width;
     return GestureDetector(
       onTap: () => onClick(category.id, category.title),
       child: Card(
-        child:  Padding(
-          padding: const EdgeInsets.only(bottom: 10.0),
-          child: Column(
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 10.0),
+            child: Column(
               children: <Widget>[
                 Container(
                   width: _width - 30.0,
@@ -29,7 +32,7 @@ class CategoryCard extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 5.0,
+                  height: 10.0,
                 ),
                 Text(
                   category.title,
@@ -37,7 +40,13 @@ class CategoryCard extends StatelessWidget {
                 )
               ],
             ),
-        ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: const BorderRadius.all(
+              Radius.circular(0),
+            ),
+          ),
+          margin: EdgeInsets.only(bottom: 15.0),
       ),
     );
   }

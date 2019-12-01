@@ -120,7 +120,7 @@ class _HomePage extends State<HomePage> with UnsubscribeMixin {
                           ),
                           HomeCarousel(),
                           SizedBox(
-                            height: 10.0,
+                            height: 15.0,
                           ),
                           ListView.builder(
                             shrinkWrap: true,

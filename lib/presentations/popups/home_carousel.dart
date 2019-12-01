@@ -4,15 +4,15 @@ import 'package:kissan_garden/utils/styles.dart';
 
 class HomeCarousel extends StatelessWidget {
   List<String> _sliderImages = [
-    'assets/images/fresh_food.jpeg',
-    'assets/images/on_time_delivery.jpeg',
-    'assets/images/quality_food.jpeg',
+    'assets/images/organic.jpg',
+    'assets/images/on-time-delivery.png',
+    'assets/images/free.png',
   ];
 
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      height: 220.0,
+      height: 260.0,
       reverse: false,
       autoPlay: true,
       autoPlayInterval: Duration(seconds: 3),
